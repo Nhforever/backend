@@ -28,7 +28,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use(limiter);
 app.use(cookieParser());
 app.use(cors({
-    origin: ['http://127.0.0.1:5500','http://192.168.10.26',FRONTED],
+    origin: 'https://erikk7274.github.io/',
     credentials: true,
 }));
 
