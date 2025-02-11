@@ -137,7 +137,7 @@ const logout = (req, res) => {
 // teszt
 const test = (req, res) => {
     const user = req.user;
-    return res.status(200).json({ message: 'bent vagy ', user });
+    return res.status(200).json({ message: 'bent vagy! ', user });
 };
 
 module.exports = { register, login, logout, test };
