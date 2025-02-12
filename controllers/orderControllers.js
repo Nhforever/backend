@@ -185,4 +185,29 @@ const cancelOrder=(req, res) => {
         //return res.status(200).json({ message: 'Sikeresen inaktív lett a rendelés ' });
     })
 }
-module.exports={ itemsOrder,allOrder,cancelOrder };
+//rendelés elfogadása (Admin)
+const confirmOrder=(req, res) => {
+    const order_Id = req.params.order_id;
+    console.log(order_Id);
+    //console.log(lastBestId);
+    const sql1 = "UPDATE order_items_archive SET status=2 WHERE order_id=?";
+    db.query(sql1,order_Id,(err,result)=>{
+        if (err) {
+            console.error(err);
+            return res.status(500).json({ error: 'Hiba az SQL végrehajtása során.' });
+        }
+        /*const elsoelem=result[0];
+        const szam=elsoelem['SUM(`unit_price`)'];
+        console.log(szam);*/
+        return res.status(200).json({ message: 'Sikeresen elfogadtad a rendelést! ' });
+    });
+    /*db.query(sql2,order_Id,(err,result)=>{
+        if (err) {
+            console.error(err);
+            return res.status(500).json({ error: 'Hiba az SQL végrehajtása során.' });
+        }
+        console.log(result);
+        //return res.status(200).json({ message: 'Sikeresen inaktív lett a rendelés ' });
+    })*/
+}
+module.exports={ itemsOrder,allOrder,cancelOrder,confirmOrder };
