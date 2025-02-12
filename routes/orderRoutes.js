@@ -7,6 +7,6 @@ const router = express.Router();
 router.post('/itemsOrder',authenticateToken, itemsOrder);
 router.post('/allOrder',authenticateToken, allOrder);
 router.delete('/cancelOrder/:order_id',authenticateToken,cancelOrder);
-router.put('/confimrOrder/:order_id',authenticateToken,confirmOrder)
+router.put('/confirmOrder/:order_id',authenticateToken,confirmOrder)
 
 module.exports = router;
