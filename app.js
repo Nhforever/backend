@@ -28,7 +28,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use(limiter);
 app.use(cookieParser());
 app.use(cors({
-    origin: 'https://erikk7274.github.io',
+    origin:[ 'https://erikk7274.github.io', 'https://techbay2.netlify.app'],
     credentials: true,
 }));
 
