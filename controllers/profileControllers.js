@@ -59,7 +59,7 @@ const editData=(req, res) => {
     
 };
 const myData=(req, res) => {
-    const user_id = req.user.user_id;
+    const user_id = req.user.id;
     //console.log("userid: ",user_id);
     const sql = "SELECT postcode,city,street,fullname FROM user_info WHERE user_id=?";
 
