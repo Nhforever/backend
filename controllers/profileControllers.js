@@ -89,4 +89,19 @@ const orderHistory=(req, res) => {
         return res.status(201).json(result);
     });
 }
-module.exports = {  editProfilePic,editData,myData,orderHistory,getUsername };
+
+const getAdmin=(req, res) => {
+    const user_id = req.user.id;
+    //console.log("userid: ",user_id);
+    const sql = "SELECT admin FROM users WHERE user_id=?;";
+
+    db.query(sql, user_id, (err, result) => {
+        if (err) {
+            return res.status(500).json({ error: 'Hiba az SQL-ben' });
+        }
+        //console.log(result.info);
+
+        return res.status(201).json(result);
+    });
+}
+module.exports = {  editProfilePic,editData,myData,orderHistory,getUsername,getAdmin };
