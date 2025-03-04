@@ -91,7 +91,7 @@ const orderHistory=(req, res) => {
 }
 
 const getAdmin=(req, res) => {
-    const user_id = req.user.user_id;
+    const user_id = req.user.id;
     //console.log("userid: ",user_id);
     const sql = "SELECT admin FROM users WHERE user_id=?;";
     console.log(user_id) ;
