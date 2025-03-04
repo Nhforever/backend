@@ -46,7 +46,7 @@ const editData=(req, res) => {
         if (err) {
             return res.status(500).json({ error: 'Hiba az SQL-ben' });
         }
-        console.log(result.info)
+        console.log(result.info);
 
         //return res.status(200).json({ message: 'Adatok frissítve ' });
         db.query(sql2,[fullname,user_id],(err,result)=>{
