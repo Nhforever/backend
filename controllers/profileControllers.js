@@ -101,7 +101,7 @@ const getAdmin=(req, res) => {
         }
         //console.log(result.info);
 
-        return res.status(201).json(result,user_id);
+        return res.status(201).json(result);
     });
 }
 module.exports = {  editProfilePic,editData,myData,orderHistory,getUsername,getAdmin };
