@@ -77,7 +77,7 @@ const myData=(req, res) => {
 const orderHistory=(req, res) => {
     const user_id = req.user.id;
     const order_id=user_id+100;
-    //console.log("userid: ",user_id);
+    console.log("userid: ",user_id);
     const sql = "SELECT * FROM order_items_archive WHERE order_id=?;";
 
     db.query(sql, order_id, (err, result) => {
