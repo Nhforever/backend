@@ -32,7 +32,7 @@ app.use(cors({
     credentials: true,
 }));
 
-app.use('/uploads', authenticateToken, express.static(path.join(__dirname, 'uploads')));
+app.use('/api/uploads', authenticateToken, express.static(path.join(__dirname, 'uploads')));
 
 app.use('/api/auth', authRoutes);
 app.use('/api/profile', profileRoutes);
