@@ -116,7 +116,7 @@ const login = (req, res) => {
                     path: '/',
                     maxAge: 3600000 * 24 * 31 * 11
                 });
-
+                console.log(req.user.id);
                 return res.status(200).json({ message: 'Sikeres bejelentkezés' });
             } else {
                 return res.status(401).json({ error: 'Rossz a jelszó' });
