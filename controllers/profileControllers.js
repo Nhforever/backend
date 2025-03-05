@@ -37,7 +37,7 @@ const editProfilePic = (req, res) => {
 const editData=(req, res) => {
     const{city,street,fullname,postcode}=req.body;
     const user_id = req.user.id;
-    //console.log(user_id);
+    console.log(user_id);
     //console.log(city,street,fullname,postcode);
     
     const sql = "UPDATE user_info SET city=?,street=?,fullname=?,postcode=? WHERE user_id=?";
