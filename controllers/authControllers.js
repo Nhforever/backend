@@ -38,11 +38,10 @@ const register = (req, res) => {
         if (err) {
             return res.status(500).json({ error: 'Hiba a sózáskor' });
         }
-        const pic="logo.png";
-        const sql = "INSERT INTO users (user_id, email, password, created_at, name,profile_pic,admin) VALUES (NULL, ?, ?, ?, ?,?,0)";
+        const sql = "INSERT INTO users (user_id, email, password, created_at, name,admin) VALUES (NULL, ?, ?, ?,?,0)";
 
         //console.log(profile_pic); // Ellenőrzés: teljes fájlútvonal megjelenítése
-        db.query(sql, [email, hash, time, name,pic], (err2, result) => {
+        db.query(sql, [email, hash, time, name], (err2, result) => {
             if (err2) {
                 return res.status(500).json({ error: 'Az email már foglalt' });
             }
