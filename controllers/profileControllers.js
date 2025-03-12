@@ -9,7 +9,7 @@ const getUsername=(req, res) => {
         if (err) {
             return res.status(500).json({ error: 'Hiba az SQL-ben' });
         }
-
+        console.log(result);
         return res.status(200).json(result);
     });
     /*db.query(sql2, [user_id], (err, result) => {
