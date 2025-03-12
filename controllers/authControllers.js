@@ -137,6 +137,7 @@ const logout = (req, res) => {
 // teszt
 const test = (req, res) => {
     const user = req.user;
+    console.log(user);
     return res.status(200).json({ message: 'bent vagy! ', user });
 };
 
