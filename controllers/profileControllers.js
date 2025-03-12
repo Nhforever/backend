@@ -69,7 +69,7 @@ const myData=(req, res) => {
             return res.status(500).json({ error: 'Hiba az SQL-ben' });
             
         }
-        //console.log(result.info);
+        console.log(result.info);
 
         return res.status(201).json(result);
     });
@@ -84,7 +84,7 @@ const orderHistory=(req, res) => {
         if (err) {
             return res.status(500).json({ error: 'Hiba az SQL-ben' });
         }
-        //console.log(result.info);
+        console.log(result.info);
 
         return res.status(201).json(result);
     });
@@ -99,7 +99,7 @@ const getAdmin=(req, res) => {
         if (err) {
             return res.status(500).json({ error: 'Hiba az SQL-ben' });
         }
-        //console.log(result.info);
+        console.log(result.info);
 
         return res.status(201).json(result);
     });
