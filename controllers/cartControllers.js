@@ -64,6 +64,8 @@ const RemoveProduct = (req, res) => {
     });
 };
 const ShowCart = (req, res) => {
+    console.log(req.user);
+    console.log(req.user.id); 
     const userid=req.user.id;
     const user=100;
     const cart_id=userid+user;
