@@ -127,7 +127,7 @@ const login = (req, res) => {
 // logout
 const logout = (req, res) => {
     res.clearCookie('auth_token', {
-        httpOnly: false,
+        httpOnly: true,
         secure: true,
         sameSite: 'none'
     });
