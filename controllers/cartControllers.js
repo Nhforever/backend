@@ -33,7 +33,7 @@ const RemoveProduct = (req, res) => {
     const userid=req.user.id;
     const cart_id=userid+user;
     const product_id=req.params.product_id;
-    //console.log(product_id);
+    //console.log(product_id);a
     const sql2="DELETE FROM `cart_items` WHERE `product_id` = ?";
     db.query(sql2, [product_id], (err, result) => {
         if (err) {
