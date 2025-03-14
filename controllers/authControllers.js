@@ -68,6 +68,7 @@ const register = (req, res) => {
 const login = (req, res) => {
     const { email, password } = req.body;
     const errors = [];
+
     if (!validator.isEmail(email)) {
         errors.push({ error: 'Add meg az email címet' });
     }
@@ -91,22 +92,15 @@ const login = (req, res) => {
             return res.status(404).json({ error: 'A felhasználó nem található' });
         }
 
-        const user = result[0];
+        const user = result[0]; // Itt érhető el a user_id
         bcrypt.compare(password, user.password, (err, isMatch) => {
             if (isMatch) {
                 const token = jwt.sign(
-                    {
-                        id: user.user_id
-                    },
+                    { id: user.user_id },
                     JWT_SECRET,
-                    {
-                        expiresIn: '1y'
-                    }
+                    { expiresIn: '1y' }
                 );
-                console.log(token);
 
-                // Token hozzáadása cookie-ként
-                
                 res.cookie('auth_token', token, {
                     httpOnly: true,
                     secure: true,
@@ -115,22 +109,29 @@ const login = (req, res) => {
                     path: '/',
                     maxAge: 3600000 * 24 * 31 * 11
                 });
-                //console.log(req.user.id);
-                return res.status(200).json({ message: 'Sikeres bejelentkezés' });
+
+                // **Második SQL lekérdezés az user_id alapján**
+                const sql2 = 'SELECT admin FROM users WHERE user_id = ?';
+                db.query(sql2, [user.user_id], (err, result2) => {
+                    if (err) {
+                        console.log(err);
+                        return res.status(500).json({ error: 'Hiba az SQL-ben (admin lekérdezés)' });
+                    }
+
+                    const isAdmin = result2[0]?.admin || false;
+                    return res.status(200).json({ 
+                        message: 'Sikeres bejelentkezés', 
+                        admin: isAdmin 
+                    });
+                });
+
             } else {
                 return res.status(401).json({ error: 'Rossz a jelszó' });
             }
         });
     });
-    const sql2='SELECT admin FROM users WHERE user_id=?;';
-    db.query(sql2, [user], (err, result) => {
-        if (err) {
-            return res.status(500).json({ message: 'Hiba az SQL-ben' });
-        }
-            console.log(result);
-            return res.status(201).json();
-        });
 };
+
 
 // logout
 const logout = (req, res) => {
