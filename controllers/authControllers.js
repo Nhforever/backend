@@ -129,7 +129,9 @@ const logout = (req, res) => {
     res.clearCookie('auth_token', {
         httpOnly: true,
         secure: true,
-        sameSite: 'none'
+        sameSite: 'lax',
+        domain: 'techbay2.netlify.app',
+        path: '/',
     });
     res.status(200).json({ message: 'Sikeres kijelentkezés' });
 };
