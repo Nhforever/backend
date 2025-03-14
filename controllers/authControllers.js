@@ -122,6 +122,14 @@ const login = (req, res) => {
             }
         });
     });
+    const sql2='SELECT admin FROM users WHERE user_id=?;';
+    db.query(sql2, [user], (err, result) => {
+        if (err) {
+            return res.status(500).json({ message: 'Hiba az SQL-ben' });
+        }
+            console.log(result);
+            return res.status(201).json();
+        });
 };
 
 // logout
