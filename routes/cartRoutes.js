@@ -1,7 +1,6 @@
 const express = require('express');
 const authenticateToken = require('../middleware/jwtAuth');
 const { takeProduct,RemoveProduct, ShowCart } = require('../controllers/cartControllers');
-
 const router = express.Router();
 
 router.post('/takeProduct',authenticateToken, takeProduct);
