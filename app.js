@@ -17,6 +17,7 @@ const productRoutes=require('./routes/productsRoutes');
 const deleteRoutes=require('./routes/deleteRoutes');
 const editRoutes=require('./routes/editRoutes');
 const oderRoutes=require('./routes/orderRoutes');
+const buildRoutes=require('./routes/buildRoutes');
 
 // Képzeld el, hogy van egy felhasználókat kezelő route
 
@@ -42,5 +43,6 @@ app.use('/api/getProducts',productRoutes);
 app.use('/api/delete',deleteRoutes);
 app.use('/api/edit',editRoutes);
 app.use('/api/order',oderRoutes);
+app.use('/api/build',buildRoutes);
 
 module.exports = app;
