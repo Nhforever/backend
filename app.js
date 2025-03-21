@@ -19,12 +19,12 @@ const editRoutes=require('./routes/editRoutes');
 const oderRoutes=require('./routes/orderRoutes');
 const buildRoutes=require('./routes/buildRoutes');
 
-// Képzeld el, hogy van egy felhasználókat kezelő route
-
+// Képzeld el, hogy van egy felhasználókat kezelõ route
 
 const app = express();
 
-app.set('trust proxy',true);
+// Set 'trust proxy' to true to allow Express to properly handle the X-Forwarded-For header
+app.set('trust proxy', true);  // <-- This line has been updated to true
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
