@@ -24,7 +24,7 @@ const buildRoutes=require('./routes/buildRoutes');
 
 const app = express();
 
-app.set('trust proxy',true);
+app.set('trust proxy',false);
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
