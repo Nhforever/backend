@@ -44,13 +44,13 @@ const deletePc_cpu = (req, res) => {
     const sql2='UPDATE `Yourbuild_price` SET cpu_price=0 WHERE pc_id=?'
     db.query(sql2,[pc_id],(err,result)=>{
         if (err) {
-            return res.status(500).json({ error: 'Hiba az SQL-ben' });
+            return res.status(500).json({ error: 'Hiba az SQL-ben sql2' });
         }
     })
     const sql3='UPDATE `Yourbuild_price` SET `price`=`cpu_price`+`mother-board_price`+`house_price`+`gpu_price`+`hdd_price`+`ssd_price`+`power-supply_price`+`cpu-cooler_price` WHERE `pc_id`=?;'
     db.query(sql3,[pc_id],(err,result)=>{
         if(err){
-            return res.status(500).json({ error: 'Hiba az SQL-ben' });
+            return res.status(500).json({ error: 'Hiba az SQL-ben sql3' });
         }
     })
 };
