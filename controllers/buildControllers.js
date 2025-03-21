@@ -34,13 +34,28 @@ const buildPc_board = (req, res) => {
     const board=req.body;
     const id=1000;
     const pc_id=userid+id;
-    const sql="INSERT INTO Yourbuild (pc_id, mother_board,cat_id) VALUES (?,?,103) ON DUPLICATE KEY UPDATE mother_board = VALUES(mother_board);";
-    db.query(sql, [pc_id,board], (err, result) => {
+    const sql="UPDATE Yourbuild SET mother_board=? WHERE pc_id=? ;";
+    db.query(sql, [cpu.cpu,pc_id], (err, result) => {
         if (err) {
             return res.status(500).json({ error: 'Hiba az SQL-ben' });
         }
-        return res.status(200).json({ message: 'Sikeresen hozzáadtad az alaplapot ' });
+        console.log(cpu.cpu,pc_id);
+        return res.status(200).json({/* message: 'Sikeresen hozzáadtad a processzort '*/ result});
     });
+    const sql2='UPDATE Yourbuild_price JOIN Yourbuild ON Yourbuild_price.pc_id = Yourbuild.pc_id JOIN products ON Yourbuild.mother_board = products.product_id SET Yourbuild_price.mother-board_price = products.price WHERE Yourbuild_price.pc_id = ?;';
+    const sql3='UPDATE `Yourbuild_price` SET `price`=`cpu_price`+`mother-board_price`+`house_price`+`gpu_price`+`hdd_price`+`ssd_price`+`power-supply_price`+`cpu-cooler_price` WHERE `pc_id`=?;'
+    db.query(sql2,[pc_id],(err,result)=>{
+        if(err){
+            return res.status(500).json({ error: 'Hiba az SQL-ben' });
+        }
+        //return res.status(200).json({ message: 'Sikeresen hozzáadtad a processzort ' });
+    })
+    db.query(sql3,[pc_id],(err,result)=>{
+        if(err){
+            return res.status(500).json({ error: 'Hiba az SQL-ben' });
+        }
+        //return res.status(200).json({ message: 'Sikeresen hozzáadtad a processzort ' });
+    })
 };
 
 const buildPc_house = (req, res) => {
