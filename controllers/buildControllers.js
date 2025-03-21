@@ -1,3 +1,5 @@
+const db = require('../models/db');
+
 const buildPc_cpu = (req, res) => {
     const userid=req.user.id;
     const cpu=req.body;
@@ -124,4 +126,4 @@ const buildPc_cooler = (req, res) => {
     });
 };
 
-module.exports={buildPc_cpu,buildPc_board,buildPc_house,buildPc_gpu,buildPc_hdd,buildPc_ssd,buildPc_supply,buildPc_cooler};
+module.exports = {buildPc_cpu,buildPc_board,buildPc_house,buildPc_gpu,buildPc_hdd,buildPc_ssd,buildPc_supply,buildPc_cooler};
