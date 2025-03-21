@@ -29,6 +29,32 @@ const buildPc_cpu = (req, res) => {
     })
 };
 
+const deletePc_cpu = (req, res) => {
+    const userid=req.user.id;
+    const id=1000;
+    const pc_id=userid+id;
+    const sql="UPDATE `Yourbuild` SET cpu=0 WHERE pc_id=?";
+    db.query(sql, [pc_id], (err, result) => {
+        if (err) {
+            return res.status(500).json({ error: 'Hiba az SQL-ben' });
+        }
+        console.log(cpu.cpu,pc_id);
+        return res.status(200).json({ message: 'Sikeresen törölted a processzort ', result});
+    });
+    const sql2='UPDATE `Yourbuild_price` SET cpu_price=0 WHERE pc_id=?'
+    db.query(sql2,[pc_id],(err,result)=>{
+        if (err) {
+            return res.status(500).json({ error: 'Hiba az SQL-ben' });
+        }
+    })
+    const sql3='UPDATE `Yourbuild_price` SET `price`=`cpu_price`+`mother-board_price`+`house_price`+`gpu_price`+`hdd_price`+`ssd_price`+`power-supply_price`+`cpu-cooler_price` WHERE `pc_id`=?;'
+    db.query(sql3,[pc_id],(err,result)=>{
+        if(err){
+            return res.status(500).json({ error: 'Hiba az SQL-ben' });
+        }
+    })
+};
+
 const buildPc_board = (req, res) => {
     const userid=req.user.id;
     const mother_board=req.body;
@@ -239,4 +265,4 @@ const buildPc_cooler = (req, res) => {
     })
 };
 
-module.exports = {buildPc_cpu,buildPc_board,buildPc_house,buildPc_gpu,buildPc_hdd,buildPc_ssd,buildPc_supply,buildPc_cooler};
+module.exports = {buildPc_cpu,buildPc_board,buildPc_house,buildPc_gpu,buildPc_hdd,buildPc_ssd,buildPc_supply,buildPc_cooler,deletePc_cpu};
