@@ -39,7 +39,7 @@ const deletePc_cpu = (req, res) => {
             return res.status(500).json({ error: 'Hiba az SQL-ben' });
         }
         console.log(pc_id);
-        return res.status(200).json({ message: 'Sikeresen törölted a processzort ', result});
+        //return res.status(200).json({ message: 'Sikeresen törölted a processzort ', result});
     });
     const sql2='UPDATE `Yourbuild_price` SET cpu_price=0 WHERE pc_id=?'
     db.query(sql2,[pc_id],(err,result)=>{
