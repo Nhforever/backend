@@ -39,7 +39,7 @@ const buildPc_board = (req, res) => {
         if (err) {
             return res.status(500).json({ error: 'Hiba az SQL-ben' });
         }
-        console.log(cpu.cpu,pc_id);
+        console.log(mother_board.mother_board,pc_id);
         return res.status(200).json({/* message: 'Sikeresen hozzáadtad a processzort '*/ result});
     });
     const sql2='UPDATE Yourbuild_price JOIN Yourbuild ON Yourbuild_price.pc_id = Yourbuild.pc_id JOIN products ON Yourbuild.mother_board = products.product_id SET Yourbuild_price.motherboard_price = products.price WHERE Yourbuild_price.pc_id = ?;';
