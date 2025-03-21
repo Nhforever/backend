@@ -3,7 +3,6 @@ const db = require('../models/db');
 const buildPc_cpu = (req, res) => {
     const userid=req.user.id;
     const cpu=req.body;
-    parseInt(cpu);
     const id=1000;
     const pc_id=userid+id;
     const sql="UPDATE Yourbuild SET cpu=? WHERE pc_id=? ;";
