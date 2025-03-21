@@ -3,10 +3,11 @@ const db = require('../models/db');
 const buildPc_cpu = (req, res) => {
     const userid=req.user.id;
     const cpu=req.body;
+    parseInt(cpu);
     const id=1000;
     const pc_id=userid+id;
     const sql="INSERT INTO Yourbuild (pc_id,user_id, cpu,cat_id) VALUES (?,?,?,103) ON DUPLICATE KEY UPDATE cpu = VALUES(cpu);";
-    db.query(sql, [pc_id,userid,parseInt(cpu)], (err, result) => {
+    db.query(sql, [pc_id,userid,cpu], (err, result) => {
         if (err) {
             return res.status(500).json({ error: 'Hiba az SQL-ben' });
         }
