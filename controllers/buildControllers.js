@@ -6,8 +6,8 @@ const buildPc_cpu = (req, res) => {
     parseInt(cpu);
     const id=1000;
     const pc_id=userid+id;
-    const sql="INSERT INTO Yourbuild (pc_id,user_id, cpu,cat_id) VALUES (?,?,?,103) ON DUPLICATE KEY UPDATE cpu = VALUES(cpu);";
-    db.query(sql, [pc_id,userid,cpu], (err, result) => {
+    const sql="UPDATE Yourbuild SET cpu=? WHERE pc_id=? ;";
+    db.query(sql, [cpu,pc_id], (err, result) => {
         if (err) {
             return res.status(500).json({ error: 'Hiba az SQL-ben' });
         }
