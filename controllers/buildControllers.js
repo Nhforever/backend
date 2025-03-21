@@ -43,7 +43,7 @@ const buildPc_board = (req, res) => {
         return res.status(200).json({/* message: 'Sikeresen hozzáadtad a processzort '*/ result});
     });
     const sql2='UPDATE Yourbuild_price JOIN Yourbuild ON Yourbuild_price.pc_id = Yourbuild.pc_id JOIN products ON Yourbuild.mother_board = products.product_id SET Yourbuild_price.motherboard_price = products.price WHERE Yourbuild_price.pc_id = ?;';
-    const sql3='UPDATE `Yourbuild_price` SET `price`=`cpu_price`+`mother-board_price`+`house_price`+`gpu_price`+`hdd_price`+`ssd_price`+`power-supply_price`+`cpu-cooler_price` WHERE `pc_id`=?;'
+    const sql3='UPDATE `Yourbuild_price` SET `price`=`cpu_price`+`motherboard_price`+`house_price`+`gpu_price`+`hdd_price`+`ssd_price`+`powersupply_price`+`cpucooler_price` WHERE `pc_id`=?;'
     db.query(sql2,[pc_id],(err,result)=>{
         if(err){
             return res.status(500).json({ error: 'Hiba az SQL-ben', err});
