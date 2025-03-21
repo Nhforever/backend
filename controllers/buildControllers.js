@@ -31,11 +31,11 @@ const buildPc_cpu = (req, res) => {
 
 const buildPc_board = (req, res) => {
     const userid=req.user.id;
-    const board=req.body;
+    const mother_board=req.body;
     const id=1000;
     const pc_id=userid+id;
     const sql="UPDATE Yourbuild SET mother_board=? WHERE pc_id=? ;";
-    db.query(sql, [board.board,pc_id], (err, result) => {
+    db.query(sql, [mother_board.mother_board,pc_id], (err, result) => {
         if (err) {
             return res.status(500).json({ error: 'Hiba az SQL-ben' });
         }
