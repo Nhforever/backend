@@ -20,13 +20,14 @@ const buildPc_cpu = (req, res) => {
             return res.status(500).json({ error: 'Hiba az SQL-ben' });
         }
         //return res.status(200).json({ message: 'Sikeresen hozzáadtad a processzort ' });
+        db.query(sql3,[pc_id],(err,result)=>{
+            if(err){
+                return res.status(500).json({ error: 'Hiba az SQL-ben' });
+            }
+            //return res.status(200).json({ message: 'Sikeresen hozzáadtad a processzort ' });
+        })
     })
-    db.query(sql3,[pc_id],(err,result)=>{
-        if(err){
-            return res.status(500).json({ error: 'Hiba az SQL-ben' });
-        }
-        //return res.status(200).json({ message: 'Sikeresen hozzáadtad a processzort ' });
-    })
+    
 };
 
 const deletePc_cpu = (req, res) => {
