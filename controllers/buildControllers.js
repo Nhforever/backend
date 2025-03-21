@@ -37,7 +37,7 @@ const buildPc_board = (req, res) => {
     const sql="UPDATE Yourbuild SET mother_board=? WHERE pc_id=? ;";
     db.query(sql, [mother_board.mother_board,pc_id], (err, result) => {
         if (err) {
-            return res.status(500).json({ error: 'Hiba az SQL-ben' });
+            return res.status(500).json({ error: 'Hiba az SQL-ben',err });
         }
         console.log(mother_board.mother_board,pc_id);
         return res.status(200).json({/* message: 'Sikeresen hozzáadtad a processzort '*/ result});
