@@ -6,7 +6,7 @@ const buildPc_cpu = (req, res) => {
     const id=1000;
     const pc_id=userid+id;
     const sql="UPDATE Yourbuild SET cpu=? WHERE pc_id=? ;";
-    db.query(sql, [cpu,pc_id], (err, result) => {
+    db.query(sql, [cpu.cpu,pc_id], (err, result) => {
         if (err) {
             return res.status(500).json({ error: 'Hiba az SQL-ben' });
         }
