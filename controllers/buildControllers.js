@@ -46,7 +46,7 @@ const buildPc_board = (req, res) => {
     const sql3='UPDATE `Yourbuild_price` SET `price`=`cpu_price`+`mother-board_price`+`house_price`+`gpu_price`+`hdd_price`+`ssd_price`+`power-supply_price`+`cpu-cooler_price` WHERE `pc_id`=?;'
     db.query(sql2,[pc_id],(err,result)=>{
         if(err){
-            return res.status(500).json({ error: 'Hiba az SQL-ben' });
+            return res.status(500).json({ error: 'Hiba az SQL-ben', err});
         }
         //return res.status(200).json({ message: 'Sikeresen hozzáadtad a processzort ' });
     })
