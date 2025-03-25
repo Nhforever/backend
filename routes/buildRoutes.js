@@ -1,6 +1,6 @@
 const express = require('express');
 const authenticateToken = require('../middleware/jwtAuth');
-const { buildPc_cpu,buildPc_board,buildPc_house,buildPc_gpu,buildPc_hdd,buildPc_ssd,buildPc_supply,buildPc_cooler,deletePc_cpu,deletePc_board,deletePc_house,deletePc_gpu,deletePc_hdd,deletePc_ssd,deletePc_supply,deletePc_cooler } = require('../controllers/buildControllers');
+const { buildPc_cpu,buildPc_board,buildPc_house,buildPc_gpu,buildPc_hdd,buildPc_ssd,buildPc_supply,buildPc_cooler,deletePc_cpu,deletePc_board,deletePc_house,deletePc_gpu,deletePc_hdd,deletePc_ssd,deletePc_supply,deletePc_cooler,clearPc } = require('../controllers/buildControllers');
 const router = express.Router();
 
 router.post('/buildPc_cpu',authenticateToken,buildPc_cpu);
@@ -18,6 +18,6 @@ router.put('/remove_ssd',authenticateToken,deletePc_ssd)
 router.post('/buildPc_supply',authenticateToken,buildPc_supply);
 router.put('/remove_supply',authenticateToken,deletePc_supply)
 router.post('/buildPc_cooler',authenticateToken,buildPc_cooler);
-router.put('/remove_cooler',authenticateToken,deletePc_cooler)
-
+router.put('/remove_cooler',authenticateToken,deletePc_cooler);
+router.put('/buildPc_clear',authenticateToken,clearPc);
 module.exports = router;

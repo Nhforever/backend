@@ -504,4 +504,36 @@ const deletePc_cooler = (req, res) => {
     })
 };
 
-module.exports = {buildPc_cpu,buildPc_board,buildPc_house,buildPc_gpu,buildPc_hdd,buildPc_ssd,buildPc_supply,buildPc_cooler,deletePc_cpu,deletePc_board,deletePc_house,deletePc_gpu,deletePc_hdd,deletePc_ssd,deletePc_supply,deletePc_cooler};
+const clearPc=(req, res) => {
+    const userid=req.user.id;
+    const id=1000;
+    const pc_id=userid+id;
+    const sql="UPDATE `Yourbuild` SET cpu=0,mother_board=0,house=0,gpu=0,hdd=0,ssd=0,power_supply=0,cpu_cooler=0 WHERE pc_id=?";
+    const sql3='UPDATE `Yourbuild_price` SET `price`=`cpu_price`+`motherboard_price`+`house_price`+`gpu_price`+`hdd_price`+`ssd_price`+`powersupply_price`+`cpucooler_price` WHERE `pc_id`=?;'
+    db.query(sql3,[pc_id],(err,result)=>{
+        if(err){
+            return res.status(500).json({ error: 'Hiba az SQL-ben sql3' });
+        }
+    })
+    db.query(sql, [pc_id], (err, result) => {
+        if (err) {
+            return res.status(500).json({ error: 'Hiba az SQL-ben' });
+        }
+        console.log(pc_id);
+        return res.status(200).json({ message: 'Sikeresen törölted a processzort ', result});
+    });
+    const sql2='UPDATE `Yourbuild_price` SET cpu_price=0,motherboard_price=0,house_price=0,gpu_price=0,hdd_price=0,ssd_price=0,powersupply_price=0,cpucooler_price=0 WHERE pc_id=?';
+    db.query(sql2,[pc_id],(err,result)=>{
+        if (err) {
+            return res.status(500).json({ error: 'Hiba az SQL-ben sql2' });
+        }
+    })
+    
+    db.query(sql3,[pc_id],(err,result)=>{
+        if(err){
+            return res.status(500).json({ error: 'Hiba az SQL-ben sql3' });
+        }
+    })
+};
+
+module.exports = {buildPc_cpu,buildPc_board,buildPc_house,buildPc_gpu,buildPc_hdd,buildPc_ssd,buildPc_supply,buildPc_cooler,deletePc_cpu,deletePc_board,deletePc_house,deletePc_gpu,deletePc_hdd,deletePc_ssd,deletePc_supply,deletePc_cooler,clearPc};
