@@ -57,10 +57,28 @@ const register = (req, res) => {
                     return res.status(500).json({ message: 'Hiba az SQL-ben' });
                 }
 
+                //res.status(201).json({ message: 'Sikeres regisztráció' });
+            });
+            const usernumber=1000;
+            const fulluserid=newUserId+usernumber;
+            const sql4='INSERT INTO `Yourbuild`(`pc_id`, `user_id`, `cpu`, `mother_board`, `house`, `gpu`, `hdd`, `ssd`, `power_supply`, `cpu_cooler`, `cat_id`) VALUES (?,?,0,0,0,0,0,0,0,0,103)';
+            const sql5='INSERT INTO `Yourbuild_price`(`pc_id`, `cpu_price`, `motherboard_price`, `house_price`, `gpu_price`, `hdd_price`, `ssd_price`, `powersupply_price`, `cpucooler_price`, `price`) VALUES (?,0,0,0,0,0,0,0,0,0)';
+            db.query(sql4, [fulluserid,newUserId], (err4, result4) => {
+                if (err4) {
+                    return res.status(500).json({ message: 'Hiba az SQL-ben' });
+                }
+
+                //res.status(201).json({ message: 'Sikeres regisztráció' });
+                db.query(sql5,[fulluserid],(err5,result5)=>{
+                    if(err5){
+                        return res.status(500).json({ message: 'Hiba az SQL-ben' });
+                    }
+                })
                 res.status(201).json({ message: 'Sikeres regisztráció' });
             });
         });
     });
+    
 };
 
 
