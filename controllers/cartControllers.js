@@ -29,9 +29,8 @@ const takeProduct = (req, res) => {
                 if (err) {
                     return res.status(500).json({ error: 'Hiba az SQL-ben' });
                 }
-
+        });
         return res.status(200).json({ message: 'Sikeresen frissítetted a kosaradat! ' });
-    });
         }
     })
     
