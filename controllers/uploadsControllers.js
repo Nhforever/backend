@@ -22,7 +22,7 @@ const uploadProduct = (req, res) => {
 
     const product_pic = req.file ? req.file.filename : null;
 
-    const sql = "INSERT INTO `products` (`product_id`, `product_name`, `price`, `in_stock`, `cat_id`, `sale`, `product_pic`,sale_) VALUES (NULL, ?, ?, ?, ?, ?, ?,?)";
+    const sql = "INSERT INTO `products` (`product_id`, `product_name`, `price`, `in_stock`, `cat_id`, `sale`, `product_pic`,sale_,description) VALUES (NULL, ?, ?, ?, ?, ?, ?,?,?)";
     db.query(sql, [product_name, parseFloat(price), parseInt(in_stock, 10), parseInt(cat_id, 10), parseInt(sale, 10), product_pic,sale_,description], (err, result) => {
         if (err) {
             console.error('SQL Hiba:', err);
