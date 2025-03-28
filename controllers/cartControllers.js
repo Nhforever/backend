@@ -17,7 +17,8 @@ const takeProduct = (req, res) => {
         //return res.status(200).json({ message: 'Sikeresen letrehoztad a kosarad! ' });
     });
     
-    const { product_id, quantity,cat_id } = req.body;
+    const { product_id} = req.params;
+    const {quantity,cat_id}=req.body;
     const sql="INSERT INTO `cart_items`(`cart_item_id`, `cart_id`, `product_id`, `quantity`, `cat_id`) VALUES (NULL,?,?,?,?)";
     db.query(sql, [cart_id,product_id,quantity,cat_id], (err, result) => {
         if (err) {
