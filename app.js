@@ -3,7 +3,7 @@ const express = require('express');
 const cors = require('cors');
 const cookieParser = require('cookie-parser');
 const path = require('path');
-//const {FRONTED}=require('./config/dotenvConfig').config;
+//const {FRONTED}=require('./config/dotenvConfig').config;;
 
 const limiter = require('./middleware/limiter');
 const authenticateToken = require('./middleware/jwtAuth');
