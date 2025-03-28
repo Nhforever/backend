@@ -3,6 +3,7 @@ const validator = require('validator');
 const jwt = require('jsonwebtoken');
 const db = require('../models/db');
 const { timeStamp, log } = require('console');
+const { rest } = require('lodash');
 const { JWT_SECRET } = require('../config/dotenvConfig').config;
 
 //termék kosárba pakolása és kosár létrehozása
@@ -19,14 +20,27 @@ const takeProduct = (req, res) => {
     
     const { product_id} = req.params;
     const {quantity,cat_id}=req.body;
-    const sql="INSERT INTO `cart_items`(`cart_item_id`, `cart_id`, `product_id`, `quantity`, `cat_id`) VALUES (NULL,?,?,?,?)";
-    db.query(sql, [cart_id,product_id,quantity,cat_id], (err, result) => {
-        if (err) {
-            return res.status(500).json({ error: 'Hiba az SQL-ben' });
+    const sql5="SELECT * FROM products WHERE prduct_id=?;"
+    db.query(sql5,[product_id],(err,result)=>{
+        if(err){
+            return res.status(500).json({error:"SQL Hiba" + err})
         }
+        if(result.lenght===0){
+            return res.status(404).json({error:'Nincs ilyen termék!'});
+        }
+        if(result>0){
+            const catid=result.cat_id;
+            const sql="INSERT INTO `cart_items` (`cart_item_id`, `cart_id`, `product_id`, `quantity`, `cat_id`) VALUES (NULL,?,?,?,?)";
+                db.query(sql, [cart_id,product_id,quantity,catid], (err, result) => {
+                if (err) {
+                    return res.status(500).json({ error: 'Hiba az SQL-ben' });
+                }
 
         return res.status(200).json({ message: 'Sikeresen frissítetted a kosaradat! ' });
     });
+        }
+    })
+    
 };
 //termék kosárbol kitörlése és a kosár törlése
 const RemoveProduct = (req, res) => {
