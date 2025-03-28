@@ -1,10 +1,4 @@
-const bcrypt = require('bcryptjs');
-const validator = require('validator');
-const jwt = require('jsonwebtoken');
 const db = require('../models/db');
-const { timeStamp, log } = require('console');
-const { rest } = require('lodash');
-const { JWT_SECRET } = require('../config/dotenvConfig').config;
 
 //termék kosárba pakolása és kosár létrehozása
 const takeProduct = (req, res) => {
