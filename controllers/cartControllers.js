@@ -7,9 +7,9 @@ const takeProduct = (req, res) => {
     const sql2="INSERT IGNORE INTO cart (cart_id, user_id) VALUES (?, ?);";
     db.query(sql2, [cart_id,userid], (err, result) => {
         if (err) {
-            //return res.status(500).json({ error: 'Hiba az SQL-ben' });
+            return res.status(500).json({ error: 'Hiba az SQL-ben' });
         }
-        //return res.status(200).json({ message: 'Sikeresen letrehoztad a kosarad! ' });
+        return res.status(200).json({ message: 'Sikeresen letrehoztad a kosarad! ' });
     });
     
     const { product_id} = req.params;
