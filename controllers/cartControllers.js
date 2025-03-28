@@ -14,7 +14,7 @@ const takeProduct = (req, res) => {
     
     const { product_id} = req.params;
     const {quantity,cat_id}=req.body;
-    const sql5="SELECT * FROM products WHERE prduct_id=?;"
+    const sql5="SELECT * FROM products WHERE product_id=?;"
     db.query(sql5,[product_id],(err,result)=>{
         if(err){
             return res.status(500).json({error:"SQL Hiba" + err})
