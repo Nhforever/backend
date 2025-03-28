@@ -17,9 +17,9 @@ const uploadProduct = (req, res) => {
     } = req.body;
 
     // Alap validálás
-    /*if (!product_name || !price || !in_stock || !cat_id || !sale ||!description) {
+    if (!product_name || !price || !in_stock || !cat_id || !sale ||!description) {
         return res.status(400).json({ error: 'Minden mező kitöltése kötelező!' });
-    }*/
+    }
 
     const product_pic = req.file ? req.file.filename : null;
 
