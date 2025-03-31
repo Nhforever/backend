@@ -39,7 +39,7 @@ const uploadProduct = (req, res) => {
 };
 //előre összeállított gép feltöltése
 const uploadConfig=(req, res) => {
-    const cat_id=103;
+    const cat_id=1;
     const { cpu,mother_board,house,ram,gpu,hdd,ssd,power_supply,cpu_cooler,price,in_stock,sale,sale_,config_name,description,active } = req.body;
 
     const config_pic = req.file ? req.file.filename : null;
