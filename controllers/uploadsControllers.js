@@ -16,6 +16,9 @@ const uploadProduct = (req, res) => {
     const { product_name, price, in_stock, cat_id, sale,sale_,product_description
     } = req.body;
     const product_pic = req.file ? req.file.filename : null;
+    if(product_pic===null){
+        return res.status(400).json({error:'Nincs kép te cigány!'})
+    }
     console.log("név: "+product_name, "típus: "+typeof(product_name)+"\nprice: "+price, "típus: "+typeof(price)+"\ninstock: "+in_stock, "típus: "+typeof(in_stock)+"\ncatid: "+cat_id, "típus: "+typeof(cat_id)+"\nsale: "+sale, "típus: "+typeof(sale)+"\npic: "+product_pic, "típus: "+typeof(product_pic)+"\n");
     // Alap validálás
     if (!product_name || !price || !in_stock || !cat_id || !sale ||!product_description) {
