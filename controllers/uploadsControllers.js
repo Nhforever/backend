@@ -39,11 +39,12 @@ const uploadProduct = (req, res) => {
 };
 //előre összeállított gép feltöltése
 const uploadConfig=(req, res) => {
+    const cat_id=103;
     const { cpu,mother_board,house,ram,gpu,hdd,ssd,power_supply,cpu_cooler,price,in_stock,sale,sale_,config_name,description,active } = req.body;
 
     const config_pic = req.file ? req.file.filename : null;
 
-    const sql = "INSERT INTO pc_configs (pc_id, cpu, mother_board, house, ram, gpu, hdd, ssd, power_supply,cpu_cooler, price, in_stock, cat_id, sale,sale_, config_name, config_pic, description,active)VALUES (NULL, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 1, ?, ?, ?,?,?,?);";
+    const sql = "INSERT INTO pc_configs (pc_id, cpu, mother_board, house, ram, gpu, hdd, ssd, power_supply,cpu_cooler, price, in_stock, cat_id, sale,sale_, config_name, config_pic, description,active)VALUES (NULL, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?,?,?,?);";
     db.query(sql, [cpu,mother_board,house,ram,gpu,hdd,ssd,power_supply,cpu_cooler,price,in_stock,cat_id,sale,sale_,config_name,config_pic,description,active], (err, result) => {
         if (err) {
             console.error('SQL Hiba:', err);
