@@ -82,7 +82,7 @@ const ShowCart = (req, res) => {
     const userid=req.user.id;
     const user=100;
     const cart_id=userid+user;
-    const sql2="SELECT * FROM cart_items WHERE cart_id = ?";
+    const sql2="SELECT * FROM cart_items INNER JOIN products ON product_id=product.product_id WHERE cart_id = ?";
     db.query(sql2, [cart_id], (err, result) => {
         if (err) {
             console.log(err);
