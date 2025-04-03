@@ -88,45 +88,13 @@ const ShowCart = (req, res) => {
             console.log(err);
             return res.status(500).json({ error: 'Hiba az SQL-ben' }); 
         }
-        const formattedResult = result.map(row => ({
-            cartItem: {
-                cart_item_id: row.cart_item_id,
-                cart_id: row.cart_id,
-                product_id: row.product_id,
-                quantity: row.quantity,
-            },
-            product: {
-                product_id: row.product_id,
-                product_name: row.product_name,
-                price: row.price,
-                in_stock: row.in_stock,
-                cat_id: row.cat_id,
-                sale: row.sale,
-                product_pic: row.product_pic,
-                description: row.description,
-            },
-            config: {
-                product_id: row.product_id,
-                cpu: row.cpu,
-                mother_board: row.mother_board,
-                house: row.house,
-                ram: row.ram,
-                gpu: row.gpu,
-                hdd: row.hdd,
-                ssd: row.ssd,
-                power_supply: row.power_supply,
-                cpu_cooler: row.cpu_cooler,
-                price: row.price,
-                in_stock: row.in_stock,
-                cat_id: row.cat_id,
-                sale: row.sale,
-                product_name: row.product_name,
-                product_pic: row.product_pic,
-                description: row.description,
-                active: row.active
-            }
-        }));
-        return res.status(201).json(formattedResult);
+        const cleanedResult = result.map(row => {
+            return Object.fromEntries(
+                Object.entries(row).filter(([_, value]) => value !== null)
+            );
+        });
+    
+        return res.status(201).json(cleanedResult);
     });
 };
 module.exports={ takeProduct,RemoveProduct,ShowCart };
