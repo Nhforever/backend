@@ -24,7 +24,7 @@ const buildRoutes=require('./routes/buildRoutes');
 const app = express();
 
 // Set 'trust proxy' to true to allow Express to properly handle the X-Forwarded-For header
-app.set('trust proxy', true);  // <-- This line has been updated to true
+app.set('trust proxy', false);  // <-- This line has been updated to true
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
