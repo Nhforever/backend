@@ -15,10 +15,10 @@ const deleteProduct = (req, res) => {
 };
 //előre összerakott gép törlése
 const deleteConfig = (req, res) => {
-    const pc_id=req.params.pc_id;
-    console.log(pc_id);
-    const sql = "DELETE FROM `pc_configs` WHERE pc_id=?";
-    db.query(sql,pc_id, (err, result) => {
+    const product_id=req.params.product_id;
+    console.log(product_id);
+    const sql = "DELETE FROM `pc_configs` WHERE product_id=?";
+    db.query(sql,product_id, (err, result) => {
         if (err) {
             console.error('SQL Hiba:', err);
             return res.status(500).json({ error: 'Hiba az SQL-ben', details: err });
