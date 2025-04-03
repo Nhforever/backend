@@ -82,13 +82,51 @@ const ShowCart = (req, res) => {
     const userid=req.user.id;
     const user=100;
     const cart_id=userid+user;
-    const sql2="SELECT a.*, b.*, c.* FROM cart_items a LEFT JOIN pc_configs c ON a.product_id = c.product_id LEFT JOIN products b ON a.product_id = b.product_id WHERE a.cart_id = ?;";
+    const sql2="SELECT a.cart_item_id, a.cart_id, a.product_id AS cart_product_id, a.quantity,b.product_id AS product_product_id, b.product_name, b.price AS product_price, b.in_stock AS product_in_stock, b.cat_id AS product_cat_id, b.sale, b.product_pic, b.description,c.product_id AS config_product_id, c.cpu, c.mother_board, c.house, c.ram, c.gpu, c.hdd, c.ssd, c.power_supply, c.cpu_cooler, c.price AS config_price, c.in_stock AS config_in_stock, c.cat_id AS config_cat_id, c.sale AS config_sale, c.product_name AS config_product_name, c.product_pic AS config_product_pic, c.description AS config_description, c.active FROM cart_items a LEFT JOIN products b ON a.product_id = b.product_id LEFT JOIN pc_configs c ON a.product_id = c.product_id WHERE a.cart_id = 182;";
     db.query(sql2, [cart_id], (err, result) => {
         if (err) {
             console.log(err);
             return res.status(500).json({ error: 'Hiba az SQL-ben' }); 
         }
-        return res.status(201).json(result);
+        const formattedResult = result.map(row => ({
+            cartItem: {
+                cart_item_id: row.cart_item_id,
+                cart_id: row.cart_id,
+                product_id: row.product_id,
+                quantity: row.quantity,
+            },
+            product: {
+                product_id: row.product_id,
+                product_name: row.product_name,
+                price: row.price,
+                in_stock: row.in_stock,
+                cat_id: row.cat_id,
+                sale: row.sale,
+                product_pic: row.product_pic,
+                description: row.description,
+            },
+            config: {
+                product_id: row.product_id,
+                cpu: row.cpu,
+                mother_board: row.mother_board,
+                house: row.house,
+                ram: row.ram,
+                gpu: row.gpu,
+                hdd: row.hdd,
+                ssd: row.ssd,
+                power_supply: row.power_supply,
+                cpu_cooler: row.cpu_cooler,
+                price: row.price,
+                in_stock: row.in_stock,
+                cat_id: row.cat_id,
+                sale: row.sale,
+                product_name: row.product_name,
+                product_pic: row.product_pic,
+                description: row.description,
+                active: row.active
+            }
+        }));
+        return res.status(201).json(formattedResult);
     });
 };
 module.exports={ takeProduct,RemoveProduct,ShowCart };
