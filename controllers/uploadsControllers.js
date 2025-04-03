@@ -13,22 +13,22 @@ const uploadCategory=(req, res) => {
 };
 //termék feltöltése
 const uploadProduct = (req, res) => {
-    const { product_name, price, quantity, cat_id, sale,sale_,description
+    const { product_name, price, in_stock, cat_id, sale,sale_,description
     } = req.body;
     const product_pic = req.file ? req.file.filename : null;
     if(product_pic===null){
         return res.status(400).json({error:'Nincs kép te cigány!'})
     }
-    console.log("név: "+product_name, "típus: "+typeof(product_name)+"\nprice: "+price, "típus: "+typeof(price)+"\ninstock: "+quantity, "típus: "+typeof(quantity)+"\ncatid: "+cat_id, "típus: "+typeof(cat_id)+"\nsale: "+sale, "típus: "+typeof(sale)+"\npic: "+product_pic, "típus: "+typeof(product_pic)+"\n");
+    console.log("név: "+product_name, "típus: "+typeof(product_name)+"\nprice: "+price, "típus: "+typeof(price)+"\ninstock: "+in_stock, "típus: "+typeof(in_stock)+"\ncatid: "+cat_id, "típus: "+typeof(cat_id)+"\nsale: "+sale, "típus: "+typeof(sale)+"\npic: "+product_pic, "típus: "+typeof(product_pic)+"\n");
     // Alap validálás
-    if (!product_name || !price || !quantity || !cat_id || !sale ||!description) {
+    if (!product_name || !price || !in_stock || !cat_id || !sale ||!description) {
         return res.status(400).json({ error: 'Minden mező kitöltése kötelező!' });
     }
 
     
 
-    const sql = "INSERT INTO `products` (`product_id`, `product_name`, `price`, `quantity`, `cat_id`, `sale`, `product_pic`,sale_,description) VALUES (NULL, ?, ?, ?, ?, ?, ?,?,?)";
-    db.query(sql, [product_name, parseFloat(price), parseInt(quantity, 10), parseInt(cat_id, 10), parseInt(sale, 10), product_pic,sale_,description], (err, result) => {
+    const sql = "INSERT INTO `products` (`product_id`, `product_name`, `price`, `in_stock`, `cat_id`, `sale`, `product_pic`,sale_,description) VALUES (NULL, ?, ?, ?, ?, ?, ?,?,?)";
+    db.query(sql, [product_name, parseFloat(price), parseInt(in_stock, 10), parseInt(cat_id, 10), parseInt(sale, 10), product_pic,sale_,description], (err, result) => {
         if (err) {
             console.error('SQL Hiba:', err);
             return res.status(500).json({ error: 'Hiba az SQL-ben', details: err });
@@ -40,12 +40,12 @@ const uploadProduct = (req, res) => {
 //előre összeállított gép feltöltése
 const uploadConfig=(req, res) => {
     const cat_id=1;
-    const { cpu,mother_board,house,ram,gpu,hdd,ssd,power_supply,cpu_cooler,price,quantity,sale,sale_,product_name,description,active } = req.body;
+    const { cpu,mother_board,house,ram,gpu,hdd,ssd,power_supply,cpu_cooler,price,in_stock,sale,sale_,product_name,description,active } = req.body;
 
     const product_pic = req.file ? req.file.filename : null;
 
-    const sql = "INSERT INTO pc_configs (product_id, cpu, mother_board, house, ram, gpu, hdd, ssd, power_supply,cpu_cooler, price, quantity, cat_id, sale,sale_, product_name, product_pic, description,active)VALUES (NULL, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?,?,?,?);";
-    db.query(sql, [cpu,mother_board,house,ram,gpu,hdd,ssd,power_supply,cpu_cooler,price,quantity,cat_id,sale,sale_,product_name,product_pic,description,active], (err, result) => {
+    const sql = "INSERT INTO pc_configs (product_id, cpu, mother_board, house, ram, gpu, hdd, ssd, power_supply,cpu_cooler, price, in_stock, cat_id, sale,sale_, product_name, product_pic, description,active)VALUES (NULL, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?,?,?,?);";
+    db.query(sql, [cpu,mother_board,house,ram,gpu,hdd,ssd,power_supply,cpu_cooler,price,in_stock,cat_id,sale,sale_,product_name,product_pic,description,active], (err, result) => {
         if (err) {
             console.error('SQL Hiba:', err);
             return res.status(500).json({ error: 'Hiba az SQL-ben', details: err });
