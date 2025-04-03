@@ -82,7 +82,7 @@ const ShowCart = (req, res) => {
     const userid=req.user.id;
     const user=100;
     const cart_id=userid+user;
-    const sql2="SELECT a.*, b.product_id,b.product_name,b.price,b.in_stock,b.cat_id,b.sale,b.product_pic,b.sale_,b.description, c.* FROM cart_items a LEFT JOIN products b ON a.product_id = b.product_id LEFT JOIN pc_configs c ON a.product_id = c.product_id WHERE a.cart_id = 182;";
+    const sql2="SELECT a.*, b.*, c.* FROM cart_items a LEFT JOIN pc_configs c ON a.product_id = c.product_id LEFT JOIN products b ON a.product_id = b.product_id WHERE a.cart_id = ?;";
     db.query(sql2, [cart_id], (err, result) => {
         if (err) {
             console.log(err);
