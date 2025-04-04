@@ -79,44 +79,45 @@ const RemoveProduct = (req, res) => {
         if(result===0){
             return res.status(404).json({message:"nem jó gec."})
         }
-        return res.status(200).json(result);
-        
-    })
-    if (!cart_item_id || isNaN(cart_item_id)) {
-        /*return res.status(400).json({ error: 'Érvénytelen cart_item_id!' });*/
-    }
-
-    console.log("cart_item_id: " + cart_item_id);
-
-    const sql2 = "DELETE FROM `cart_items` WHERE `cart_item_id` = ?";
-    db.query(sql2, [cart_item_id], (err, result) => {
-        if (err) {
-            console.log(err);
-            return res.status(500).json({ error: 'Hiba az SQL-ben' });
+        //return res.status(200).json(result);
+        cart_item_id=result[0].cart_item_id;
+        if (!cart_item_id || isNaN(cart_item_id)) {
+            /*return res.status(400).json({ error: 'Érvénytelen cart_item_id!' });*/
         }
-
-        const sql = "SELECT COUNT(*) AS count FROM cart_items WHERE cart_id = ?";
-        db.query(sql, [cart_id], (err, result) => {
+    
+        console.log("cart_item_id: " + cart_item_id);
+    
+        const sql2 = "DELETE FROM `cart_items` WHERE `cart_item_id` = ?";
+        db.query(sql2, [cart_item_id], (err, result) => {
             if (err) {
+                console.log(err);
                 return res.status(500).json({ error: 'Hiba az SQL-ben' });
             }
-
-            const szam = result[0].count; // Helyes értékelérés
-            console.log(szam);
-
-            if (szam == 0) {
-                const sql1 = "DELETE FROM `cart` WHERE `cart_id` = ?";
-                db.query(sql1, [cart_id], (err, result) => {
-                    if (err) {
-                        return res.status(500).json({ error: 'Hiba az SQL-ben' });
-                    }
-                    /*return res.status(200).json({ message: 'Sikeresen törölted az üres kosarat!' });*/
-                });
-            } else {
-                /*return res.status(200).json({ message: 'Sikeresen eltávolítottad a terméket a kosárból!' });*/
-            }
+    
+            const sql = "SELECT COUNT(*) AS count FROM cart_items WHERE cart_id = ?";
+            db.query(sql, [cart_id], (err, result) => {
+                if (err) {
+                    return res.status(500).json({ error: 'Hiba az SQL-ben' });
+                }
+    
+                const szam = result[0].count; // Helyes értékelérés
+                console.log(szam);
+    
+                if (szam == 0) {
+                    const sql1 = "DELETE FROM `cart` WHERE `cart_id` = ?";
+                    db.query(sql1, [cart_id], (err, result) => {
+                        if (err) {
+                            return res.status(500).json({ error: 'Hiba az SQL-ben' });
+                        }
+                        /*return res.status(200).json({ message: 'Sikeresen törölted az üres kosarat!' });*/
+                    });
+                } else {
+                    /*return res.status(200).json({ message: 'Sikeresen eltávolítottad a terméket a kosárból!' });*/
+                }
+            });
         });
-    });
+    })
+    
 };
 
 const ShowCart = (req, res) => {
