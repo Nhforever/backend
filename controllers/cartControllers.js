@@ -69,7 +69,7 @@ const RemoveProduct = (req, res) => {
     const userid = req.user.id;
     const cart_id = userid + user;
     const cart_item_id = req.params.cart_item_id;
-
+    console.log(cart_item_id);
     if (!cart_item_id || isNaN(cart_item_id)) {
         return res.status(400).json({ error: 'Érvénytelen cart_item_id!' });
     }
