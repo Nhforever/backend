@@ -34,7 +34,7 @@ const takeProduct = (req, res) => {
                         res.status(404).json({message:'Nincs ilyen termék!'})
                     }
                     else{
-                        pc_id=product_id;
+                        product_id;
                         db.query(sql, [cart_id, product_id, quantity, catid], (err, result) => {
                             if (err) {
                                 return res.status(500).json({ error: 'Hiba az SQL-ben' });
