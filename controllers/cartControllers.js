@@ -82,9 +82,8 @@ const RemoveProduct = (req, res) => {
         return res.status(200).json(result);
         
     })
-}
-    /*if (!cart_item_id || isNaN(cart_item_id)) {
-        return res.status(400).json({ error: 'Érvénytelen cart_item_id!' });
+    if (!cart_item_id || isNaN(cart_item_id)) {
+        /*return res.status(400).json({ error: 'Érvénytelen cart_item_id!' });*/
     }
 
     console.log("cart_item_id: " + cart_item_id);
@@ -111,15 +110,15 @@ const RemoveProduct = (req, res) => {
                     if (err) {
                         return res.status(500).json({ error: 'Hiba az SQL-ben' });
                     }
-                    return res.status(200).json({ message: 'Sikeresen törölted az üres kosarat!' });
+                    /*return res.status(200).json({ message: 'Sikeresen törölted az üres kosarat!' });*/
                 });
             } else {
-                return res.status(200).json({ message: 'Sikeresen eltávolítottad a terméket a kosárból!' });
+                /*return res.status(200).json({ message: 'Sikeresen eltávolítottad a terméket a kosárból!' });*/
             }
         });
     });
 };
-*/
+
 const ShowCart = (req, res) => {
     console.log(req.user);
     console.log(req.user.id); 
