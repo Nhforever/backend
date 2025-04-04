@@ -24,7 +24,25 @@ const takeProduct = (req, res) => {
 
             // Ha nincs találat, jelezzük
             if (result.length === 0) {
-                return res.status(404).json({ error: 'Nincs ilyen termék!' });
+                /*return res.status(404).json({ error: 'Nincs ilyen termék!' });*/
+                db.query(sql6, [pc_id], (err, result) => {
+                    if (err) {
+                        console.log(err);
+                        return res.status(500).json({ error: 'Hiba az SQL-ben' }); 
+                    }
+                    if(result.length===0){
+                        res.status(404).json({message:'Nincs ilyen termék!'})
+                    }
+                    else{
+                        product_id=pc_id;
+                        db.query(sql, [cart_id, product_id, quantity, catid], (err, result) => {
+                            if (err) {
+                                return res.status(500).json({ error: 'Hiba az SQL-ben' });
+                            }
+                            return res.status(200).json({ message: 'Sikeresen frissítetted a kosaradat!' });
+                        });
+                    }
+                });
             }
 
             const catid = result[0].cat_id;
