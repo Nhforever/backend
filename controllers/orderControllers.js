@@ -38,7 +38,7 @@ const itemsOrder = (req, res) => {
         ? AS order_id, 
         cart_items.product_id, 
         cart_items.quantity, 
-        pc_configs.price AS unit_price
+        pc_configs.pc_price AS unit_price
     FROM 
         cart_items
     INNER JOIN 
