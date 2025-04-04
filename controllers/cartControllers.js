@@ -71,7 +71,7 @@ const RemoveProduct = (req, res) => {
     const cart_id = userid + user;
     const cart_item_id = req.params.cart_item_id;
     console.log(cart_item_id);
-    db.query(sql99,[userid],(err,result)=>{
+    db.query(sql99,[cart_id],(err,result)=>{
         if (err) {
             console.log(err);
             return res.status(500).json({ error: 'Hiba az SQL-ben' });
