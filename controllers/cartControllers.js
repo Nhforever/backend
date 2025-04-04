@@ -65,7 +65,7 @@ const takeProduct = (req, res) => {
 
 //termék kosárbol kitörlése és a kosár törlése
 const RemoveProduct = (req, res) => {
-    const sql99='SELECT * FROM cartitems WHERE user_id=?';
+    const sql99='SELECT * FROM cart_items WHERE user_id=?';
     const user = 100;
     const userid = req.user.id;
     const cart_id = userid + user;
