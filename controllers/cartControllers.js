@@ -65,48 +65,40 @@ const takeProduct = (req, res) => {
 
 //termék kosárbol kitörlése és a kosár törlése
 const RemoveProduct = (req, res) => {
-    const user = 100;
-    const userid = req.user.id;
-    const cart_id = userid + user;
-    const cart_item_id = req.params.cart_item_id; // Helyes lekérdezés
-
-    if (!cart_item_id || isNaN(cart_item_id)) {
-        return res.status(400).json({ error: 'Érvénytelen cart_item_id!' });
-    }
-
-    console.log("cart_item_id: " + cart_item_id);
-
-    const sql2 = "DELETE FROM `cart_items` WHERE `cart_item_id` = ?";
+    const user=100;
+    const userid=req.user.id;
+    const cart_id=userid+user;
+    const cart_item_id=req.params.cart_item_id;
+    console.log("cart_item_id: "+cart_item_id);
+    const sql2="DELETE FROM `cart_items` WHERE `cart_item_id` = ?";
     db.query(sql2, [cart_item_id], (err, result) => {
         if (err) {
             console.log(err);
             return res.status(500).json({ error: 'Hiba az SQL-ben' }); 
         }
+        //return res.status(200).json({ message: 'Sikeresen eltávolítottad a terméket a kosaradbol! ' });
     });
-
-    const sql = "SELECT COUNT(*) AS count FROM cart_items WHERE cart_id = ?";
-    const sql1 = "DELETE FROM `cart` WHERE `cart_id` = ?;";
-
+    const sql="SELECT COUNT(*) FROM cart_items WHERE cart_id = ?";
+    const sql1="DELETE FROM `cart` WHERE `cart_id` = ?;";
     db.query(sql, [cart_id], (err, result) => {
         if (err) {
             return res.status(500).json({ error: 'Hiba az SQL-ben' });
         }
-
-        const szam = result[0].count; // Megfelelő módon lekérjük az értéket
+        const elsoelem=result[0];
+        const szam=elsoelem['COUNT(*)'];
         console.log(szam);
-
-        if (szam == 0) {
-            db.query(sql1, [cart_id], (err, result) => {
+       
+        if(szam==0){
+            db.query(sql1,[cart_id],(err,result)=>{
                 if (err) {
                     return res.status(500).json({ error: 'Hiba az SQL-ben' });
                 }
-            });
+            })
         }
 
-        return res.status(200).json({ message: 'Sikeresen frissítetted a kosaradat!' });
+        return res.status(200).json({ message: 'Sikeresen frissítetted a kosaradat! ' });
     });
 };
-
 const ShowCart = (req, res) => {
     console.log(req.user);
     console.log(req.user.id); 
