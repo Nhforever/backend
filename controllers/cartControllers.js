@@ -25,6 +25,7 @@ const takeProduct = (req, res) => {
             // Ha nincs találat, jelezzük
             if (result.length === 0) {
                 /*return res.status(404).json({ error: 'Nincs ilyen termék!' });*/
+                const pc_id=product_id;
                 db.query(sql6, [pc_id], (err, result) => {
                     if (err) {
                         console.log(err);
