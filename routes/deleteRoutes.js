@@ -5,7 +5,7 @@ const adminMiddleware = require('../middleware/admin');
 
 const router = express.Router();
 
-router.delete('/deleteProduct/:cart_item_id', authenticateToken,adminMiddleware, deleteProduct);
+router.delete('/deleteProduct/:product_id', authenticateToken,adminMiddleware, deleteProduct);
 router.delete('/deleteConfig/:pc_id', authenticateToken,adminMiddleware, deleteConfig);
 
 
