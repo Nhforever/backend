@@ -17,7 +17,7 @@ const deleteProduct = (req, res) => {
 const deleteConfig = (req, res) => {
     const product_id=req.params.product_id;
     console.log(product_id);
-    const sql = "DELETE FROM `pc_configs` WHERE product_id=?";
+    const sql = "DELETE FROM `pc_configs` WHERE pc_id=?";
     db.query(sql,product_id, (err, result) => {
         if (err) {
             console.error('SQL Hiba:', err);

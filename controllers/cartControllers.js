@@ -8,8 +8,8 @@ const takeProduct = (req, res) => {
     const { quantity } = req.body;
     const sql2 = "INSERT IGNORE INTO cart (cart_id, user_id) VALUES (?, ?);";
     const sql5 = "SELECT * FROM products WHERE product_id = ?;";
+    const sql6 = "SELECT * FROM pc_configs WHERE pc_id = ?;";
     const sql = "INSERT INTO `cart_items` (`cart_item_id`, `cart_id`, `product_id`, `quantity`, `cat_id`) VALUES (NULL, ?, ?, ?, ?)";
-
     // Létrehozzuk a kosarat
     db.query(sql2, [cart_id, userid], (err, result) => {
         if (err) {

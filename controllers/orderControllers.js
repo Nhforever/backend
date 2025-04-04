@@ -44,7 +44,7 @@ const itemsOrder = (req, res) => {
     INNER JOIN 
         pc_configs 
     ON 
-        cart_items.product_id = pc_configs.product_id
+        cart_items.product_id = pc_configs.pc_id
     WHERE 
         cart_items.cart_id = ?;
     `;
