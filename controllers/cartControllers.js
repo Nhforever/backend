@@ -132,7 +132,7 @@ const SUMprice=(req,res)=>{
     console.log(userid);
     const user=100;
     const cart_id=userid+user;
-    const sql88='SELECT SUM(a.price*b.quantity) AS osszeg FROM products a JOIN cart_items b ON a.product_id=b.product_id WHERE b.cart_id=?;'
+    const sql88='SELECT SUM(a.price*b.quantity) AS sumPrice FROM products a JOIN cart_items b ON a.product_id=b.product_id WHERE b.cart_id=?;'
     db.query(sql88,[cart_id],(err,result)=>{
         if(err){
             console.log(err);
