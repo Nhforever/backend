@@ -116,6 +116,9 @@ const ShowCart = (req, res) => {
             console.log(err);
             return res.status(500).json({ error: 'Hiba az SQL-ben' }); 
         }
+        if(result.length===0){
+            return res.status(200).json([]);
+        }
         const cleanedResult = result.map(row => {
             return Object.fromEntries(
                 Object.entries(row).filter(([_, value]) => value !== null)
