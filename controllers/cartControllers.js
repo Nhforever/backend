@@ -79,22 +79,23 @@ const RemoveProduct = (req, res) => {
             console.log(err);
             return res.status(500).json({ error: 'Hiba az SQL-ben' });
         }
-
+        console.log(result);
         const sql = "SELECT COUNT(*) AS count FROM cart_items WHERE cart_id = ?";
-        db.query(sql, [cart_id], (err, result) => {
+        db.query(sql, [cart_id], (err, result2) => {
             if (err) {
                 return res.status(500).json({ error: 'Hiba az SQL-ben' });
             }
-
+            console.log(result2);
             const szam = result[0].count; // Helyes értékelérés
             console.log(szam);
 
             if (szam == 0) {
                 const sql1 = "DELETE FROM `cart` WHERE `cart_id` = ?";
-                db.query(sql1, [cart_id], (err, result) => {
+                db.query(sql1, [cart_id], (err, result3) => {
                     if (err) {
                         return res.status(500).json({ error: 'Hiba az SQL-ben' });
                     }
+                    console.log(result3);
                     return res.status(200).json({ message: 'Sikeresen törölted az üres kosarat!' });
                 });
             } else {
