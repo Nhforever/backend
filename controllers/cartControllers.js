@@ -129,7 +129,7 @@ const ShowCart = (req, res) => {
             console.log(err);
             return res.status(500).json({error:'Hiba az SQL-ben'})
         }
-    return res.status(201).json({message:'Összeg : '+result})
+    return res.status(201).json(result);
     })
 };
 module.exports={ takeProduct,RemoveProduct,ShowCart };
