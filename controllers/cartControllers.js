@@ -126,7 +126,7 @@ const ShowCart = (req, res) => {
             );
         });
         
-        return res.status(201).json(cleanedResult);
+        return res.status(200).json(cleanedResult);
         
     });
     
@@ -142,7 +142,7 @@ const SUMprice=(req,res)=>{
             console.log(err);
             return res.status(500).json({error:'Hiba az SQL-ben'})
         }
-    return res.status(201).json(result);
+    return res.status(200).json(result);
     })
 }
 module.exports={ takeProduct,RemoveProduct,ShowCart,SUMprice };
