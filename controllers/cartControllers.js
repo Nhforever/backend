@@ -138,7 +138,7 @@ const RemoveProduct = (req, res) => {
                 return res.status(500).json({ error: 'Hiba az SQL-ben' });
             }
             console.log(result3);
-            return res.status(204).send(); // töröltük a terméket
+            return res.status(200).send({message:'Sikeres törlés!'}); // töröltük a terméket
         })
     })
 };
