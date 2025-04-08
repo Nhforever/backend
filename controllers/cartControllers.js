@@ -89,7 +89,7 @@ const RemoveProduct = (req, res) => {
             const szam = result2[0].count; // Helyes értékelérés
             console.log(szam);
 
-            if (szam == 0) {
+            if (szam === 0) {
                 const sql1 = "DELETE FROM `cart` WHERE `cart_id` = ?";
                 db.query(sql1, [cart_id], (err, result3) => {
                     if (err) {
@@ -98,9 +98,9 @@ const RemoveProduct = (req, res) => {
                     console.log(result3);
                     return res.status(200).json({ message: 'Sikeresen törölted az üres kosarat!' });
                 });
-            } else {
+            } 
                 return res.status(204).json({ message: 'Sikeresen eltávolítottad a terméket a kosárból!' });
-            }
+            
         });
     });
 };
