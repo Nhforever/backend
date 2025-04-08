@@ -122,14 +122,14 @@ const ShowCart = (req, res) => {
                 Object.entries(row).filter(([_, value]) => value !== null)
             );
         });
-        db.query(sql88,[cart_id],(err,result)=>{
-            if(err){
-                console.log(err);
-                return res.status(500).json({error:'Hiba az SQL-ben'})
-            }
-        //return res.status(201).json({message:'Összeg : '+result})
-        })
         return res.status(201).json(cleanedResult);
     });
+    db.query(sql88,[cart_id],(err,result)=>{
+        if(err){
+            console.log(err);
+            return res.status(500).json({error:'Hiba az SQL-ben'})
+        }
+    return res.status(201).json({message:'Összeg : '+result})
+    })
 };
 module.exports={ takeProduct,RemoveProduct,ShowCart };
