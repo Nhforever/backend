@@ -86,7 +86,7 @@ const RemoveProduct = (req, res) => {
                 return res.status(500).json({ error: 'Hiba az SQL-ben' });
             }
             console.log(result2);
-            const szam = result[0].count; // Helyes értékelérés
+            const szam = result2[0].count; // Helyes értékelérés
             console.log(szam);
 
             if (szam == 0) {
