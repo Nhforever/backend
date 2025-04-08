@@ -111,7 +111,6 @@ const ShowCart = (req, res) => {
     const user=100;
     const cart_id=userid+user;
     const sql2="SELECT a.*,b.*,c.* FROM cart_items a LEFT JOIN products b ON a.product_id = b.product_id LEFT JOIN pc_configs c ON a.product_id = c.pc_id WHERE a.cart_id = ?;";
-    const sql88='SELECT SUM(a.price*b.quantity) AS osszeg FROM products a JOIN cart_items b ON a.product_id=b.product_id WHERE b.cart_id=?;'
     db.query(sql2, [cart_id], (err, result) => {
         if (err) {
             console.log(err);
@@ -128,4 +127,17 @@ const ShowCart = (req, res) => {
     });
     
 };
-module.exports={ takeProduct,RemoveProduct,ShowCart };
+const SUMprice=(req,res)=>{
+    const userid=req.user.id;
+    const user=100;
+    const cart_id=userid+user;
+    const sql88='SELECT SUM(a.price*b.quantity) AS osszeg FROM products a JOIN cart_items b ON a.product_id=b.product_id WHERE b.cart_id=?;'
+    db.query(sql88,[cart_id],(err,result)=>{
+        if(err){
+            console.log(err);
+            return res.status(500).json({error:'Hiba az SQL-ben'})
+        }
+    return res.status(201).json(result);
+    })
+}
+module.exports={ takeProduct,RemoveProduct,ShowCart,SUMprice };
