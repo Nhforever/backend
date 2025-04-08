@@ -95,7 +95,7 @@ const RemoveProduct = (req, res) => {
                     if (err) {
                         return res.status(500).json({ error: 'Hiba az SQL-ben' });
                     }
-                    /*return res.status(200).json({ message: 'Sikeresen törölted az üres kosarat!' });*/
+                    return res.status(200).json({ message: 'Sikeresen törölted az üres kosarat!' });
                 });
             } else {
                 return res.status(200).json({ message: 'Sikeresen eltávolítottad a terméket a kosárból!' });
