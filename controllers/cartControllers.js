@@ -98,7 +98,7 @@ const RemoveProduct = (req, res) => {
                     return res.status(200).json({ message: 'Sikeresen törölted az üres kosarat!' });
                 });
             } else {
-                return res.status(200).json({ message: 'Sikeresen eltávolítottad a terméket a kosárból!' });
+                return res.status(204).json({ message: 'Sikeresen eltávolítottad a terméket a kosárból!' });
             }
         });
     });
