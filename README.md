@@ -10,7 +10,7 @@
     - user_id => (ez az elsődleges kulcs) ez azonosítja a felhasználót
     - email => ez az email cím ezzel kell bejelentkezni
     - password => ez is kell a bejelentekéshez
-    - create_at => ez a mező mutatja meg hogy mikor rsgisztrált
+    - create_at => ez a mező mutatja meg hogy mikor regisztrált
     - name => ez a felhasználó neve
     - proflie_pic => ez a felhasználó profilképe
     - admin => ez az admin vagyis hogy admin a felhasználó vagy nem
@@ -89,12 +89,37 @@
     - cpu => processzor idje
     - mother_board => alaplap idje
     - house => gépház idje
-    - ram => ram neve
-    - gpu => Videókártya neve
-    - hdd => hdd neve
-    - ssd => ssd neve
-    - power_supply => tápegység neve
-    - cpu_cooler => processzor_hűtő neve
-    - pc_price => ez a config ára
-    - in_stock => ez a mennyisége
+    - ram => ram idje
+    - gpu => Videókártya idje
+    - hdd => hdd idje
+    - ssd => ssd idje
+    - power_supply => tápegység idje
+    - cpu_cooler => processzor_hűtő idje
     - cat_id => ezzel azonosítjuk a kategóriát
+- Yourbuild_price
+    - pc_id => (ez az elsődleges kulcs) ez azonosítja a pc-t és hozzárendeljük a felhasználóhoz
+    - cpu_price => processzor ára
+    - motherboard_price => alaplap ára
+    - house_price => gépház ára
+    - ram_price => ram ára
+    - gpu_price => Videókártya ára
+    - hdd_price => hdd ára
+    - ssd_price => ssd ára
+    - powersupply_price => tápegység ára
+    - cpucooler_price => processzor_hűtő ára
+    - price => ezzel a mezővel számoljuk ki a az árát
+### Összegzés:
+> 
+Az users táblába vannak a felhaszálók
+Az user_info táblába vannak az adatai
+A cart táblába a kosárnak az azonosítója van 
+A cart_itemsbe a kiválasztott termékek
+A categoryasdadba a kategóriák megnevezéssel
+Az orders táblába rendelések összegzése
+Az order_items táblába a rendelésnél kiválaszott dolgok
+Az order_items_archivebe pedig a rendelési előzmény találhtó
+A product táblába a termékek vannak
+A pc_config táblába pedig a configurációk
+A yourbuild táblába azok a dolgok vannak amiket kiválasztottál a gépösszerakóva
+A yourbuild_price táblába pedig az összegek eggyesével és összegezve
+
