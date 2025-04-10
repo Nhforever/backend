@@ -109,16 +109,16 @@
     - cpucooler_price => processzor_hűtő ára
     - price => ezzel a mezővel számoljuk ki a az árát
 ### Összegzés:
->Az users táblába vannak a felhaszálók
->Az user_info táblába vannak az adatai
->A cart táblába a kosárnak az azonosítója van 
->A cart_itemsbe a kiválasztott termékek
->A categoryasdadba a kategóriák megnevezéssel
->Az orders táblába rendelések összegzése
->Az order_items táblába a rendelésnél kiválaszott dolgok
->Az order_items_archivebe pedig a rendelési előzmény találhtó
->A product táblába a termékek vannak
->A pc_config táblába pedig a configurációk
->A yourbuild táblába azok a dolgok vannak amiket kiválasztottál a gépösszerakóva
->A yourbuild_price táblába pedig az összegek eggyesével és összegezve
+- Az users táblába vannak a felhaszálók
+- Az user_info táblába vannak az adatai
+- A cart táblába a kosárnak az azonosítója van 
+- A cart_itemsbe a kiválasztott termékek
+- A categoryasdadba a kategóriák megnevezéssel
+- Az orders táblába rendelések összegzése
+- Az order_items táblába a rendelésnél kiválaszott dolgok
+- Az order_items_archivebe pedig a rendelési előzmény találhtó
+- A product táblába a termékek vannak
+- A pc_config táblába pedig a configurációk
+- A yourbuild táblába azok a dolgok vannak amiket kiválasztottál a gépösszerakóva
+- A yourbuild_price táblába pedig az összegek eggyesével és összegezve
 
