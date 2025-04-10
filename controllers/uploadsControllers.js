@@ -43,7 +43,7 @@ const uploadConfig=(req, res) => {
     const { cpu,mother_board,house,ram,gpu,hdd,ssd,power_supply,cpu_cooler,pc_price,in_stock,sale,sale_,pc_name,pc_description,active } = req.body;
 
     if(!in_stock){
-        return res.status(404).json({message:'A darabszám kötelező!'})
+        return res.status(204).json({message:'A darabszám kötelező!'})
     }
 
     const pc_pic = req.file ? req.file.filename : null;
