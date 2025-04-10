@@ -7,7 +7,7 @@ const adminMiddleware=require('../middleware/admin')
 const router = express.Router();
 
 router.post('/uploadCategory', authenticateToken,adminMiddleware, uploadCategory);
-router.post('/uploadProduct',authenticateToken, upload.single('product_pic'),uploadProduct);
+router.post('/uploadProduct',authenticateToken, upload.single('product_pic'),adminMiddleware,uploadProduct);
 router.post('/uploadConfig', authenticateToken,upload.single('config_pic') ,adminMiddleware,uploadConfig);
 
 
