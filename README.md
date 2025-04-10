@@ -1,7 +1,7 @@
 # TechBay Projeckt
 ### Készítette: Semjéni Gyula
 ## Bemutatása
->A TechBay webáruház egy olyan webáruház ami a magyar piacon a legkelendőbb informatikai alkatrészeket és különböző cikkeket árul a legjobb áron és a legprofibb szakemberekkel
+>A TechBay webáruház egy olyan webáruház ami a magyar piacon a legkelendőbb informatikai alkatrészeket és különböző cikkeket árul a legjobb áron és a legprofibb szakemberekkel gépösszerakási lehetőséggel és a jövőbe más dologokkal is
 ## Fejlesztési környezet
 - Node.js
 - MySQL
@@ -121,4 +121,28 @@
 - A pc_config táblába pedig a configurációk
 - A yourbuild táblába azok a dolgok vannak amiket kiválasztottál a gépösszerakóva
 - A yourbuild_price táblába pedig az összegek eggyesével és összegezve
+## Backend
+Minden ami backend
+### app.js
+ebben vannak a végpont és a cors beállítása illetve a express beállításai
+### Middleware
+- admin.js ez dönti el hogy a felhasználó admin vagy nem
+- jwtAuth.js ez generálja le a tokeneket
+- limiter.js ez állítja a token időtartalmát
+- multer.js ez engedi a képek feltöltését
 
+### dotenv
+- ez a fáj tartalmazza a adatbázis nevét,jelszavát a portot és meg sok mindent
+### db.js
+- ez a fájlba van az adatbázis
+
+### Végpontok                                                
+- app.use('/api/auth', authRoutes); => A regisztráció és bejelentkezés
+- app.use('/api/profile', profileRoutes); A profil beállítások (kép csere,név változtatás,adatok módosítása)
+- app.use('/api/cart',cartRoutes ); A kosárért felelős(termékek belehelyezése és eltávolítása)
+- app.use('/api/add',uploadsRoutes); ADMIN(termékek hozzáadás,configok hozzáadása)
+- app.use('/api/getProducts',productRoutes); A termékek és configok megjelenítése
+- app.use('/api/delete',deleteRoutes); ADMIN(a termékek és configok törlése)
+- app.use('/api/edit',editRoutes); ADMIN(a termékek és configok szerkesztése) 
+- app.use('/api/order',oderRoutes); A megrendelés
+- app.use('/api/build',buildRoutes); A gépösszerakó
