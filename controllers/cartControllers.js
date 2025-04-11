@@ -174,8 +174,8 @@ const SUMprice = (req, res) => {
     console.log(userid);
     const user = 100;
     const cart_id = userid + user;
-    const sql88 = 'SELECT SUM(a.price*b.quantity) AS sumPrice FROM products a JOIN cart_items b ON a.product_id=b.product_id WHERE b.cart_id=?;'
-    db.query(sql88, [cart_id], (err, result) => {
+    const sql88 = 'SELECT ( SELECT SUM(a.price * b.quantity) FROM cart_items b JOIN products a ON a.product_id = b.product_id WHERE b.cart_id = ? ) + ( SELECT SUM(c.pc_price * b.quantity) FROM cart_items b JOIN pc_configs c ON c.pc_id = b.product_id WHERE b.cart_id = ? ) AS sumPrice;'
+    db.query(sql88, [cart_id,cart_id], (err, result) => {
         if (err) {
             console.log(err);
             return res.status(500).json({ error: 'Hiba az SQL-ben' })
