@@ -174,7 +174,7 @@ const SUMprice = (req, res) => {
     console.log(userid);
     const user = 100;
     const cart_id = userid + user;
-    const sql88 = 'SELECT ( SELECT SUM(a.price * b.quantity) FROM cart_items b JOIN products a ON a.product_id = b.product_id WHERE b.cart_id = ? ) + ( SELECT SUM(c.pc_price * b.quantity) FROM cart_items b JOIN pc_configs c ON c.pc_id = b.product_id WHERE b.cart_id = ? ) AS sumPrice;'
+    const sql88 = 'SELECT SUM(CASE WHEN p.price IS NOT NULL THEN p.price * ci.quantity WHEN pc.pc_price IS NOT NULL THEN pc.pc_price * ci.quantity ELSE 0 END) AS sumPrice FROM cart_items ci LEFT JOIN products p ON p.product_id = ci.product_id LEFT JOIN pc_configs pc ON pc.pc_id = ci.product_id WHERE ci.cart_id = ?;'
     db.query(sql88, [cart_id,cart_id], (err, result) => {
         if (err) {
             console.log(err);
