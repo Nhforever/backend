@@ -184,7 +184,7 @@ const SUMprice = (req, res) => {
     })
 }
 const editQuantity=(req,res)=>{
-    const cart_item_id = req.cart_item_id;
+    const cart_item_id = req.params.cart_item_id;
     const quantity=req.body;
     console.log(userid);
     const sql='UPDATE `cart_items` SET quantity=? WHERE `cart_item_id`=?'
