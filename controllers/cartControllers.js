@@ -183,4 +183,17 @@ const SUMprice = (req, res) => {
         return res.status(200).json(result);
     })
 }
-module.exports = { takeProduct, RemoveProduct, ShowCart, SUMprice };
+const editQuantity=(req,res)=>{
+    const cart_item_id = req.cart_item_id;
+    const quantity=req.body;
+    console.log(userid);
+    const sql='UPDATE `cart_items` SET quantity=? WHERE `cart_item_id`=?'
+    db.query(sql, [quantity,cart_item_id], (err, result) => {
+        if (err) {
+            console.log(err);
+            return res.status(500).json({ error: 'Hiba az SQL-ben' })
+        }
+        return res.status(204).json({message:'Sikeres módosítás!'});
+    })
+}
+module.exports = { takeProduct, RemoveProduct, ShowCart, SUMprice,editQuantity };
