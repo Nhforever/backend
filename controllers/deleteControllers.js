@@ -16,7 +16,7 @@ const deleteProduct = (req, res) => {
 //előre összerakott gép törlése
 const deleteConfig = (req, res) => {
     const pc_id=req.params.pc_id;
-    console.log(product_id);
+    console.log(pc_id);
     const sql = "DELETE FROM `pc_configs` WHERE pc_id=?";
     db.query(sql,pc_id, (err, result) => {
         if (err) {
