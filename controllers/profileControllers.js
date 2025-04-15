@@ -78,15 +78,20 @@ const orderHistory=(req, res) => {
     const user_id = req.user.id;
     const order_id=user_id+100;
     console.log("userid: ",user_id);
-    const sql = "SELECT * FROM order_items_archive WHERE order_id=?;";
+    const sql = "SELECT a.*,b.*,c.* FROM order_items_archive a LEFT JOIN products b ON a.product_id = b.product_id LEFT JOIN pc_configs c ON a.product_id = c.pc_id WHERE a.order_id = ?;";
 
     db.query(sql, order_id, (err, result) => {
         if (err) {
             return res.status(500).json({ error: 'Hiba az SQL-ben' });
         }
-        console.log(result.info);
+        //console.log(result.info);
+        const cleanedResult = result.map(row => {
+            return Object.fromEntries(
+                Object.entries(row).filter(([_, value]) => value !== null)
+            );
+        });
 
-        return res.status(201).json(result);
+        return res.status(201).json(cleanedResult);
     });
 }
 
