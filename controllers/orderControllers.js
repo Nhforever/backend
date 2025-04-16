@@ -1,60 +1,45 @@
 const db = require('../models/db');
 
-// Kosárból rendelésbe átemelés
 const itemsOrder = (req, res) => {
     const userId = req.user.id;
     const orderId = userId + 100;
 
-    // Előző rendelés tételeinek törlése
+    // Először töröljük a meglévő rendelési tételeket (ha vannak)
     const deleteSql = "DELETE FROM order_items WHERE order_id = ?";
     db.query(deleteSql, [orderId], (err) => {
         if (err) {
-            console.error("Hiba az előző rendelés törlésekor:", err);
-            return res.status(500).json({ error: "Nem sikerült törölni az előző rendelést." });
+            console.error("Törlési hiba:", err);
+            return res.status(500).json({ error: "Hiba a régi rendelés törlésekor." });
         }
 
-        // Termékek kosárból rendelésbe másolása
-        const sql1 = `
+        // Termékek beillesztése a products táblából
+        const insertProducts = `
             INSERT INTO order_items (order_id, product_id, quantity, unit_price)
-            SELECT 
-                ? AS order_id, 
-                cart_items.product_id, 
-                cart_items.quantity, 
-                products.price AS unit_price
-            FROM 
-                cart_items
-            INNER JOIN 
-                products ON cart_items.product_id = products.product_id
-            WHERE 
-                cart_items.cart_id = ?;
+            SELECT ?, ci.product_id, ci.quantity, p.price
+            FROM cart_items ci
+            INNER JOIN products p ON ci.product_id = p.product_id
+            WHERE ci.cart_id = ?;
         `;
 
-        db.query(sql1, [orderId, orderId], (err, result) => {
+        db.query(insertProducts, [orderId, orderId], (err) => {
             if (err) {
-                console.error(err);
-                return res.status(500).json({ error: 'Hiba a termékek beszúrásánál.' });
+                console.error("Termékek beszúrási hiba:", err);
+                return res.status(500).json({ error: "Hiba a termékek rendelésbe helyezésénél." });
             }
 
-            // PC konfigurációk beszúrása (ha van ilyen is a kosárban)
-            const sql2 = `
+            // PC konfigurációk beillesztése a pc_configs táblából
+            const insertPCs = `
                 INSERT INTO order_items (order_id, product_id, quantity, unit_price)
-                SELECT 
-                    ? AS order_id, 
-                    cart_items.product_id, 
-                    cart_items.quantity, 
-                    pc_configs.pc_price AS unit_price
-                FROM 
-                    cart_items
-                INNER JOIN 
-                    pc_configs ON cart_items.product_id = pc_configs.pc_id
-                WHERE 
-                    cart_items.cart_id = ?;
+                SELECT ?, ci.product_id, ci.quantity, pc.pc_price
+                FROM cart_items ci
+                INNER JOIN pc_configs pc ON ci.product_id = pc.pc_id
+                WHERE ci.cart_id = ?;
             `;
 
-            db.query(sql2, [orderId, orderId], (err, result) => {
+            db.query(insertPCs, [orderId, orderId], (err) => {
                 if (err) {
-                    console.error("PC-konfig beszúrási hiba:", err);
-                    // nem állítjuk meg, mehet tovább a folyamat
+                    console.error("PC konfiguráció beszúrási hiba:", err);
+                    return res.status(500).json({ error: "Hiba a konfiguráció rendelésbe helyezésénél." });
                 }
 
                 return res.status(200).json({ message: 'Sikeresen áthelyezve a kosárból a rendelésbe.' });
@@ -63,87 +48,68 @@ const itemsOrder = (req, res) => {
     });
 };
 
-// Rendelés véglegesítése
 const allOrder = (req, res) => {
     const userId = req.user.id;
     const orderId = userId + 100;
+    const currentDate = new Date().toISOString().split('.')[0];
 
-    let currentDate = new Date();
-    currentDate.setSeconds(Math.round(currentDate.getSeconds()));
-    let time = currentDate.toISOString().split('.')[0];
-
-    // Összeg lekérdezése
     const sqlSum = "SELECT SUM(unit_price) AS total FROM order_items WHERE order_id = ?;";
     db.query(sqlSum, [orderId], (err, result) => {
         if (err) {
-            console.error(err);
-            return res.status(500).json({ error: 'Hiba az összeg lekérdezésekor.' });
+            console.error("Összegzés hiba:", err);
+            return res.status(500).json({ error: "Hiba az összeg lekérdezésekor." });
         }
 
         const totalAmount = result[0].total || 0;
 
-        // Rendelés beszúrása
-        const sqlInsertOrder = `
+        const insertOrder = `
             INSERT INTO orders (order_id, user_id, order_date, total_amount)
             VALUES (NULL, ?, ?, ?);
         `;
-
-        db.query(sqlInsertOrder, [userId, time, totalAmount], (err, result) => {
+        db.query(insertOrder, [userId, currentDate, totalAmount], (err, result) => {
             if (err) {
-                console.error(err);
-                return res.status(500).json({ error: 'Hiba a rendelés beszúrásakor.' });
+                console.error("Rendelés beszúrás hiba:", err);
+                return res.status(500).json({ error: "Hiba a rendelés beszúrásakor." });
             }
 
-            const lastBestId = result.insertId;
+            const newOrderId = result.insertId;
 
             // Archiválás
-            const sqlArchive = `
+            const archiveSQL = `
                 INSERT INTO order_items_archive (order_id, product_id, quantity, unit_price, order_time, status, orders_order_id)
-                SELECT 
-                    ? AS order_id,
-                    oi.product_id,
-                    oi.quantity,
-                    oi.unit_price,
-                    o.order_date,
-                    1,
-                    ? 
+                SELECT ?, oi.product_id, oi.quantity, oi.unit_price, ?, 1, ?
                 FROM order_items oi
-                INNER JOIN orders o ON oi.order_id = ?
                 WHERE oi.order_id = ?;
             `;
 
-            db.query(sqlArchive, [orderId, lastBestId, orderId, orderId], (err) => {
+            db.query(archiveSQL, [orderId, currentDate, newOrderId, orderId], (err) => {
                 if (err) {
                     console.error("Archiválási hiba:", err);
                     return res.status(500).json({ error: "Hiba az archiválás során." });
                 }
 
-                // Kosár törlése
-                const sqlDeleteItems = "DELETE FROM cart_items WHERE cart_id = ?;";
-                db.query(sqlDeleteItems, [orderId], (err) => {
+                // Törlés a cart és order_items táblákból
+                const deleteCartItems = "DELETE FROM cart_items WHERE cart_id = ?";
+                const deleteCart = "DELETE FROM cart WHERE cart_id = ?";
+                const deleteOrderItems = "DELETE FROM order_items WHERE order_id = ?";
+
+                db.query(deleteCartItems, [orderId], (err) => {
                     if (err) console.error("Kosár elemek törlése hiba:", err);
                 });
 
-                const sqlDeleteCart = "DELETE FROM cart WHERE cart_id = ?;";
-                db.query(sqlDeleteCart, [orderId], (err) => {
+                db.query(deleteCart, [orderId], (err) => {
                     if (err) console.error("Kosár törlése hiba:", err);
                 });
 
-                // Order_items törlése
-                const sqlDeleteOrderItems = "DELETE FROM order_items WHERE order_id = ?;";
-                db.query(sqlDeleteOrderItems, [orderId], (err) => {
-                    if (err) console.error("order_items törlése hiba:", err);
+                db.query(deleteOrderItems, [orderId], (err) => {
+                    if (err) console.error("Order_items törlése hiba:", err);
                 });
 
-                return res.status(200).json({
-                    message: 'Rendelés véglegesítve és archiválva.',
-                    orderId: lastBestId
-                });
+                return res.status(200).json({ message: "Rendelés véglegesítve és archiválva." });
             });
         });
     });
 };
-
 //rendelés visszavonása
 const cancelOrder=(req, res) => {
     const order_Id = req.params.order_id;
