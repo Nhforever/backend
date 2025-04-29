@@ -1,195 +1,218 @@
-# TechBay Projeckt
-### Készítette: Semjéni Gyula
-## Bemutatása
->A TechBay webáruház egy olyan webáruház ami a magyar piacon a legkelendőbb informatikai alkatrészeket és különböző cikkeket árul a legjobb áron és a legprofibb szakemberekkel gépösszerakási lehetőséggel és a jövőbe más dologokkal is
+
+# TechBay Projekt  
+*Készítette: Semjéni Gyula*
+
+---
+
+## Bemutatás
+
+A TechBay webáruház egy modern, informatika fókuszú online áruház, amely a magyar piacon a legkeresettebb számítástechnikai alkatrészeket és termékeket kínálja. Professzionális gépösszeszerelési lehetőséget is biztosítunk, és a jövőben további szolgáltatások bevezetése is tervben van.
+
+---
+
 ## Fejlesztési környezet
-- Node.js
-- MySQL
-## Adatbázis
-- users
-    - user_id => (ez az elsődleges kulcs) ez azonosítja a felhasználót
-    - email => ez az email cím ezzel kell bejelentkezni
-    - password => ez is kell a bejelentekéshez
-    - create_at => ez a mező mutatja meg hogy mikor regisztrált
-    - name => ez a felhasználó neve
-    - proflie_pic => ez a felhasználó profilképe
-    - admin => ez az admin vagyis hogy admin a felhasználó vagy nem
-- user_info
-    - userinfo_id => (ez az elsődleges kulcs) ez azonosítja az adatokat
-    - city => ez a város vagy falu lehet
-    - street => az utca és házszám
-    - fullname => ez a neve a felhasználónak (szállításhoz)
-    - postcode => azonosításhoz
-    - user_id => ez kapcsolja össze az users táblával
-- cart
-    - cart_id => (ez az elsődleges kulcs) ez azonsítja a kosarat
-    - user_id => ennek a mező alapaján tudjuk hogy melyik kosár kié
-- cart_items
-    - cart_item_id => (ez az elsődleges kulcs) ez a mező azonosító
-    - cart_id => ez a mező kapcsolja egybe a cart-ot és a cart_items táblát
-    - product_id => ez a mező tartalmazza a terméket amit meg akar venni a vásárló
-    - quantity => ez a darabszám hogy hány darabot 
-    - cat_id => ez jelöli a kategóriát és ez kapcsolja össze a categoryasdad-ot  
-- categoryasdad 
-    - cat_id => (ez az elsődleges kulcs) ez a mező mazonosító és ezzel a mezővel kapcsoljuk egybe a cart_items táblát
-    - category_name => ez a kategória megnevezése
-- orders
-    - order_id => (ez az elsődleges kulcs) ez azonosítja a order_items-et ezzel a táblával
-    - user_id => ez kapcsolja egybe az users-el a a táblát
-    - order_date => ez mutatja meg mikor adtad le arendelést
-    - total_amount => ez a végösszeg ami megmutatja mennyit kell fizetni 
-- order_items
-    - order_item_id => (ez az elsődleges kulcs)
-    - order_id => ez kapcsolja össze a orders táblát ezzel 
-    - product_id => ez a termék idje 
-    - quantity => ez a darabszám
-    - unit_price => ez az adott termék vagy termékek összeített ára
-- order_items_archive
-    - order_item_id => (ez az elsődleges kulcs)
-    - order_id => ez a mező kapcsolja össze a order_items táblát
-    - product_id => ez a termék idje 
-    - quantity => ez a darabszám
-    - unit_price => ez a rendelés összege
-    - order_time => ez mutatja meg mikor rendelték meg
-    - status => ez a szám mutatja meg a státszát hogy elfogadták vagy még nem
-    - order_order_id => ez kapcsolja össze az orders táblát ezzel
-- product
-    - product_id => (ez az elsődleges kulcs) ez azonosítja a terméket
-    - product_name => ez a termék neve
-    - price => ez a termék ára /darab
-    - in_stock => ez a mennyisége
-    - cat_id => ez a kategória idje ezzel azonosítja
-    - sale => ez a termék ára ha akciós
-    - product_pic => ez a termék képe
-    - sale_ => ez a mező dönti el hogy akciós az áru vagy nem 
-    - description => ez a termék leírása
-- pc_config 
-    - pc_id => (ez az elsődleges kulcs) ez azonosítja a pc-t
-    - cpu => processzor neve
-    - mother_board => alaplap neve
-    - house => gépház neve
-    - ram => ram neve
-    - gpu => Videókártya neve
-    - hdd => hdd neve
-    - ssd => ssd neve
-    - power_supply => tápegység neve
-    - cpu_cooler => processzor_hűtő neve
-    - pc_price => ez a config ára
-    - in_stock => ez a mennyisége
-    - cat_id => ezzel azonosítjuk a kategóriát
-    - sale => ez a pc ára ha akciós
-    - sale_ => ez a mező dönti el hogy akciós a pc vagy nem
-    - pc_name => ez a pc neve
-    - pc_pic => ez a pc képe
-    - pc_description => ez a pc leírása
-    - active => ez a mező dönti el hogy aktív e ha nem akkor a felhasználó nem látja
-- Yourbuild
-    - pc_id => (ez az elsődleges kulcs) ez azonosítja a pc-t
-    - user_id => ez alapján azonosítja hogy ki rakta össze a gépet
-    - cpu => processzor idje
-    - mother_board => alaplap idje
-    - house => gépház idje
-    - ram => ram idje
-    - gpu => Videókártya idje
-    - hdd => hdd idje
-    - ssd => ssd idje
-    - power_supply => tápegység idje
-    - cpu_cooler => processzor_hűtő idje
-    - cat_id => ezzel azonosítjuk a kategóriát
-- Yourbuild_price
-    - pc_id => (ez az elsődleges kulcs) ez azonosítja a pc-t és hozzárendeljük a felhasználóhoz
-    - cpu_price => processzor ára
-    - motherboard_price => alaplap ára
-    - house_price => gépház ára
-    - ram_price => ram ára
-    - gpu_price => Videókártya ára
-    - hdd_price => hdd ára
-    - ssd_price => ssd ára
-    - powersupply_price => tápegység ára
-    - cpucooler_price => processzor_hűtő ára
-    - price => ezzel a mezővel számoljuk ki a az árát
-### Összegzés:
-- Az users táblába vannak a felhaszálók
-- Az user_info táblába vannak az adatai
-- A cart táblába a kosárnak az azonosítója van 
-- A cart_itemsbe a kiválasztott termékek
-- A categoryasdadba a kategóriák megnevezéssel
-- Az orders táblába rendelések összegzése
-- Az order_items táblába a rendelésnél kiválaszott dolgok
-- Az order_items_archivebe pedig a rendelési előzmény találhtó
-- A product táblába a termékek vannak
-- A pc_config táblába pedig a configurációk
-- A yourbuild táblába azok a dolgok vannak amiket kiválasztottál a gépösszerakóva
-- A yourbuild_price táblába pedig az összegek eggyesével és összegezve
+
+- **Backend:** Node.js  
+- **Adatbázis:** MySQL  
+- **Frontend:** HTML, CSS, JavaScript
+
+---
+
+## Adatbázis struktúra
+
+### Felhasználói táblák
+
+#### `users`
+- `user_id`  
+- `email`  
+- `password`  
+- `create_at`  
+- `name`  
+- `profile_pic`  
+- `admin`  
+
+#### `user_info`
+- `userinfo_id`  
+- `city`  
+- `street`  
+- `fullname`  
+- `postcode`  
+- `user_id` *(kapcsolódik az users táblához)*
+
+### Vásárlással kapcsolatos táblák
+
+#### `cart`
+- `cart_id`  
+- `user_id`
+
+#### `cart_items`
+- `cart_item_id`  
+- `cart_id`  
+- `product_id`  
+- `quantity`  
+- `cat_id`
+
+#### `category`
+- `cat_id`  
+- `category_name`
+
+#### `orders`
+- `order_id`  
+- `user_id`  
+- `order_date`  
+- `total_amount`
+
+#### `order_items`
+- `order_item_id`  
+- `order_id`  
+- `product_id`  
+- `quantity`  
+- `unit_price`
+
+#### `order_items_archive`
+- `order_item_id`  
+- `order_id`  
+- `product_id`  
+- `quantity`  
+- `unit_price`  
+- `order_time`  
+- `status`  
+- `order_order_id`
+
+### Termékek és PC-k
+
+#### `product`
+- `product_id`  
+- `product_name`  
+- `price`  
+- `in_stock`  
+- `cat_id`  
+- `sale`  
+- `sale_`  
+- `product_pic`  
+- `description`
+
+#### `pc_config`
+- `pc_id`  
+- `cpu`  
+- `mother_board`  
+- `house`  
+- `ram`  
+- `gpu`  
+- `hdd`  
+- `ssd`  
+- `power_supply`  
+- `cpu_cooler`  
+- `pc_price`  
+- `in_stock`  
+- `cat_id`  
+- `sale`  
+- `sale_`  
+- `pc_name`  
+- `pc_pic`  
+- `pc_description`  
+- `active`
+
+#### `yourbuild`
+- `pc_id`  
+- `user_id`  
+- `cpu`  
+- `mother_board`  
+- `house`  
+- `ram`  
+- `gpu`  
+- `hdd`  
+- `ssd`  
+- `power_supply`  
+- `cpu_cooler`  
+- `cat_id`
+
+#### `yourbuild_price`
+- `pc_id`  
+- `cpu_price`  
+- `motherboard_price`  
+- `house_price`  
+- `ram_price`  
+- `gpu_price`  
+- `hdd_price`  
+- `ssd_price`  
+- `power_supply_price`  
+- `cpu_cooler_price`  
+- `price` *(összesített ár)*
+
+---
+
 ## Backend
-Minden ami backend
-### app.js
-ebben vannak a végpont és a cors beállítása illetve a express beállításai
-### Middleware
-- admin.js ez dönti el hogy a felhasználó admin vagy nem
-- jwtAuth.js ez generálja le a tokeneket
-- limiter.js ez állítja a token időtartalmát
-- multer.js ez engedi a képek feltöltését
 
-### dotenv
-- ez a fáj tartalmazza a adatbázis nevét,jelszavát a portot és meg sok mindent
-### db.js
-- ebben a fájlba van az adatbázis
+### `app.js`
+- Végpontok regisztrálása
+- CORS és express middleware-ek beállítása
 
-### Végpontok                                                
-- app.use('/api/auth', authRoutes); => A regisztráció és bejelentkezés
-- app.use('/api/profile', profileRoutes); A profil beállítások (kép csere,név változtatás,adatok módosítása)
-- app.use('/api/cart',cartRoutes ); A kosárért felelős(termékek belehelyezése és eltávolítása)
-- app.use('/api/add',uploadsRoutes); ADMIN(termékek hozzáadás,configok hozzáadása)
-- app.use('/api/getProducts',productRoutes); A termékek és configok megjelenítése
-- app.use('/api/delete',deleteRoutes); ADMIN(a termékek és configok törlése)
-- app.use('/api/edit',editRoutes); ADMIN(a termékek és configok szerkesztése) 
-- app.use('/api/order',oderRoutes); A megrendelés
-- app.use('/api/build',buildRoutes); A gépösszerakó
-### server.js
-- ebben a fájlal van összekötve a .env ami kiírja hogy hol fut a szerver
+### Middleware-ek
+- `admin.js` – admin jogosultság
+- `jwtAuth.js` – token kezelés
+- `limiter.js` – rate limiter
+- `multer.js` – képfeltöltés
+
+### `.env` változók
+- `PORT`  
+- `DB_USER`  
+- `DB_PASSWORD`  
+- `DB_NAME`  
+- `JWT_SECRET` stb.
+
+### `db.js`
+- MySQL kapcsolat létrehozása
+
+### API végpontok
+```
+/api/auth            – bejelentkezés, regisztráció  
+/api/profile         – profilbeállítás  
+/api/cart            – kosár műveletek  
+/api/add             – admin termékhozzáadás  
+/api/getProducts     – termékek lekérése  
+/api/delete          – admin törlés  
+/api/edit            – admin szerkesztés  
+/api/order           – rendelés  
+/api/build           – PC összerakó
+```
+
+### `server.js`
+- `.env` betöltés, szerver indítása
+
+---
+
 ## Frontend
-minden ami frontend
+
 ### Mappaszerkezet
-- css
-    - ebben a mappába rtalálható az összes css vagyis amennyi html oldal van annyi css is
-- img
-    - ebben a mappáda találhatóak a képek
-- js 
-    - ebben a mappába vannak a js fájlok
-        - fetch 
-        - modal 
-        - form
-        - és sok más
-- html fájlok 
-    - ezek az oldalak 
-### js fájlok
-Ezekbe kódok találhatóak
-- cart.js - ebben a fájla vanak benne a kosárba helyezés/eltávolítás, a kosár tartalmának megjelenítése
-- home.js ez a kezdőlap a felhasználóknak, termékek betöltése  ,szűrés
-- homeAdmin.js - ebben a fájlba vannak az admin felületen a kiírtatás és még sok más dolog
-- index.js - ez az alap oldal, ez az első oldal amivel találkozol
-- login.js - itt van a bejelntkezés 
-- orderHistory.js - itt lehet megnézni a redelési eklőzményedet
-- pcBuilding.js - itt lehet pc-t összerakni
-- preBuilt.js - itt vannak az előre összeállított gépek 
-- preBuiltAdmin.js - ez az admin oldala a prebuiltnek
-- profile.js - itt vannak a profile dolgai
-- profilePic.js - itt lehet profilképet feltölteni
-- registration.js - itt lehet regisztrálni
-- uploadProduct.js - itt lehet feltölni a termékeket és a prebuilt gépeket is
-### html fájlok 
-ez jelenik meg a szemed előtt
-- cart.html - kosár
-- home.html - kezdőlap
-- homeAdmin.html - admin kezdőlap
-- index.html - az első lap ami a regisztráció és bejelntkezés gomb van
-- login.html - bejelentkezés
-- orderHistory.html - rendelési előzmény
-- pcBuilding.html - gépösszerakó
-- preBuilt.html - előre összeállított gépek
-- preBuiltAdmin.html - az előre összeállított gépek admin felülete
-- profile.html - profil
-- profilePic.html - profilkép
-- registration.html - regisztráció
-- uploadProducts.html - termékek feltöltése
+- `css/` – stílusfájlok  
+- `img/` – képek  
+- `js/` – JavaScript fájlok  
+- HTML oldalak: `cart.html`, `home.html`, `login.html`, `registration.html`, stb.
+
+### Fontosabb JS fájlok
+- `cart.js` – kosárkezelés  
+- `home.js` – terméklistázás  
+- `homeAdmin.js` – admin funkciók  
+- `login.js`, `registration.js` – bejelentkezés, regisztráció  
+- `profile.js`, `profilePic.js` – profil  
+- `pcBuilding.js` – gépösszeállítás  
+- `preBuilt.js`, `preBuiltAdmin.js` – előre gépek  
+- `uploadProduct.js` – termékfeltöltés
+
+---
+
+## Használt npm csomagok
+
+### Backend
+- `bcrypt` – jelszavak hash-elése  
+- `dotenv` – környezeti változók  
+- `express` – backend keretrendszer  
+- `express-rate-limit` – lekérés korlátozás  
+- `jsonwebtoken` – JWT hitelesítés  
+- `multer` – fájlfeltöltés  
+- `mysql2` – MySQL driver  
+- `validator` – validálás  
+- `cors` – CORS kezelés  
+- `helmet` *(ajánlott)* – biztonság  
+- `nodemon` *(fejlesztéshez)* – automatikus újratöltés
