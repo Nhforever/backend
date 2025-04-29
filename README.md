@@ -214,5 +214,3 @@ A TechBay webáruház egy modern, informatika fókuszú online áruház, amely a
 - `mysql2` – MySQL driver  
 - `validator` – validálás  
 - `cors` – CORS kezelés  
-- `helmet` *(ajánlott)* – biztonság  
-- `nodemon` *(fejlesztéshez)* – automatikus újratöltés
