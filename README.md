@@ -181,4 +181,15 @@ Ezekbe kódok találhatóak
 ### html fájlok 
 ez jelenik meg a szemed előtt
 - cart.html - kosár
--  
+- home.html - kezdőlap
+- homeAdmin.html - admin kezdőlap
+- index.html - az első lap ami a regisztráció és bejelntkezés gomb van
+- login.html - bejelentkezés
+- orderHistory.html - rendelési előzmény
+- pcBuilding.html - gépösszerakó
+- preBuilt.html - előre összeállított gépek
+- preBuiltAdmin.html - az előre összeállított gépek admin felülete
+- profile.html - profil
+- profilePic.html - profilkép
+- registration.html - regisztráció
+- uploadProducts.html - termékek feltöltése
