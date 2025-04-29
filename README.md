@@ -134,7 +134,7 @@ ebben vannak a végpont és a cors beállítása illetve a express beállítása
 ### dotenv
 - ez a fáj tartalmazza a adatbázis nevét,jelszavát a portot és meg sok mindent
 ### db.js
-- ez a fájlba van az adatbázis
+- ebben a fájlba van az adatbázis
 
 ### Végpontok                                                
 - app.use('/api/auth', authRoutes); => A regisztráció és bejelentkezés
@@ -146,3 +146,39 @@ ebben vannak a végpont és a cors beállítása illetve a express beállítása
 - app.use('/api/edit',editRoutes); ADMIN(a termékek és configok szerkesztése) 
 - app.use('/api/order',oderRoutes); A megrendelés
 - app.use('/api/build',buildRoutes); A gépösszerakó
+### server.js
+- ebben a fájlal van összekötve a .env ami kiírja hogy hol fut a szerver
+## Frontend
+minden ami frontend
+### Mappaszerkezet
+- css
+    - ebben a mappába rtalálható az összes css vagyis amennyi html oldal van annyi css is
+- img
+    - ebben a mappáda találhatóak a képek
+- js 
+    - ebben a mappába vannak a js fájlok
+        - fetch 
+        - modal 
+        - form
+        - és sok más
+- html fájlok 
+    - ezek az oldalak 
+### js fájlok
+Ezekbe kódok találhatóak
+- cart.js - ebben a fájla vanak benne a kosárba helyezés/eltávolítás, a kosár tartalmának megjelenítése
+- home.js ez a kezdőlap a felhasználóknak, termékek betöltése  ,szűrés
+- homeAdmin.js - ebben a fájlba vannak az admin felületen a kiírtatás és még sok más dolog
+- index.js - ez az alap oldal, ez az első oldal amivel találkozol
+- login.js - itt van a bejelntkezés 
+- orderHistory.js - itt lehet megnézni a redelési eklőzményedet
+- pcBuilding.js - itt lehet pc-t összerakni
+- preBuilt.js - itt vannak az előre összeállított gépek 
+- preBuiltAdmin.js - ez az admin oldala a prebuiltnek
+- profile.js - itt vannak a profile dolgai
+- profilePic.js - itt lehet profilképet feltölteni
+- registration.js - itt lehet regisztrálni
+- uploadProduct.js - itt lehet feltölni a termékeket és a prebuilt gépeket is
+### html fájlok 
+ez jelenik meg a szemed előtt
+- cart.html - kosár
+-  

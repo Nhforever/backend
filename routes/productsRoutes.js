@@ -9,7 +9,7 @@ const router = express.Router();
 router.get('/getProducts_others', authenticateToken, Getproducts_others);
 router.get('/getProducts_all',authenticateToken, Getproducts_all);
 router.get('/getConfig_active',authenticateToken,  Getconfig_active);
-router.get('/getConfig_all', adminMiddleware,authenticateToken, Getconfig_all);
+router.get('/getConfig_all', authenticateToken, Getconfig_all);
 router.get('/getProducts_cpus', authenticateToken,Getproducts_cpus);
 router.get('/getProducts_motherboards', authenticateToken,Getproducts_motherboards);
 router.get('/getProducts_houses', authenticateToken,Getproducts_houses);
