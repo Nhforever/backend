@@ -18,12 +18,12 @@ const editProduct = (req, res) => {
     });
 };
 const editConfig=(req, res) => {
-    const pc_id=req.params.product_id;
-    const { cpu,mother_board,house,ram,gpu,hdd,ssd,power_supply,pc_price,cpu_cooler,in_stock,cat_id,sale,sale_,pc_name,pc_description,active } = req.body;
+    const pc_id=req.params.pc_id;
+    const { cpu,mother_board,house,ram,gpu,hdd,ssd,power_supply,pc_price,cpu_cooler,in_stock,cat_id,sale,sale_,pc_name,pc_description } = req.body;
 
     const pc_pic = req.file ? req.file.filename : null;
-    const sql = 'UPDATE pc_configs SET cpu=?,mother_board=?,house=?,ram=?,gpu=?,hdd=?,ssd=?,power_supply=?,pc_price=?,cpu_cooler=?,in_stock=?,cat_id=?,sale=?,sale_=?,product_name=?,product_pic=COALESCE(NULLIF(?, ""), product_pic),description=?,active=? WHERE product_id=?;'
-    db.query(sql,[cpu,mother_board,house,ram,gpu,hdd,ssd,power_supply,pc_price,cpu_cooler,in_stock,cat_id,sale,sale_,pc_name,pc_pic,pc_description,active,pc_id], (err, result) => {
+    const sql = 'UPDATE pc_configs SET cpu=?,mother_board=?,house=?,ram=?,gpu=?,hdd=?,ssd=?,power_supply=?,pc_price=?,cpu_cooler=?,in_stock=?,cat_id=?,sale=?,sale_=?,product_name=?,product_pic=COALESCE(NULLIF(?, ""), product_pic),description=?, WHERE product_id=?;'
+    db.query(sql,[cpu,mother_board,house,ram,gpu,hdd,ssd,power_supply,pc_price,cpu_cooler,in_stock,cat_id,sale,sale_,pc_name,pc_pic,pc_description,pc_id], (err, result) => {
         if (err) {
             console.error('SQL Hiba:', err);
             return res.status(500).json({ error: 'Hiba az SQL-ben', details: err });
@@ -32,4 +32,32 @@ const editConfig=(req, res) => {
         return res.status(200).json({ message: 'Sikeresen módosítottad a terméket ' });
     });
 };
-module.exports={ editProduct,editConfig };
+const active=(req, res) => {
+    const pc_id=req.params.pc_id;
+
+    const sql = 'UPDATE pc_configs SET active=1 WHERE pc_id=?;'
+    db.query(sql,[pc_id], (err, result) => {
+        if (err) {
+            console.error('SQL Hiba:', err);
+            return res.status(500).json({ error: 'Hiba az SQL-ben', details: err });
+        }
+        console.log(result.info);
+        return res.status(200).json({ message: 'Sikeresen aktiváltad ' });
+    });
+};
+
+const inactive=(req, res) => {
+    const pc_id=req.params.pc_id;
+
+    const sql = 'UPDATE pc_configs SET active=0 WHERE pc_id=?;'
+    db.query(sql,[pc_id], (err, result) => {
+        if (err) {
+            console.error('SQL Hiba:', err);
+            return res.status(500).json({ error: 'Hiba az SQL-ben', details: err });
+        }
+        console.log(result.info);
+        return res.status(200).json({ message: 'Sikeresen inaktiváltad ' });
+    });
+};
+
+module.exports={ editProduct,editConfig,active,inactive };
