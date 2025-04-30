@@ -226,8 +226,7 @@ Az admin felületen a termékek feltölése szerkezstése és sok más találhat
 
 
 ## Képek
-![backend](img/backend_pic.png)
-![frontend](img/frontend_pic.webp)
+
 ![frontend](img/a1.webp)
 ![frontend](img/a2.webp)
 ![frontend](img/a3.webp)
