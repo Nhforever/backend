@@ -223,3 +223,6 @@ Az admin felületen a termékek feltölése szerkezstése és sok más találhat
 - `mysql2` – MySQL driver  
 - `validator` – validálás  
 - `cors` – CORS kezelés  
+
+![backend]img/backend_pic.png
+![frontend]img/frontend_pic.webp
