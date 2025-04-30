@@ -239,3 +239,6 @@ Az admin felületen a termékek feltölése szerkezstése és sok más találhat
 ![frontend](img/a9.webp)
 ![frontend](img/a10.webp)
 ![frontend](img/a11.webp)
+## kezdeti tervek 
+![figma](img/a12.webp)
+![figma](img/a13.webp)
