@@ -182,6 +182,14 @@ A TechBay webáruház egy modern, informatika fókuszú online áruház, amely a
 
 ---
 
+## Admin felület
+Az admin felületen a termékek feltölése szerkezstése és sok más található
+- Az admin felületre úgy tudsz belépni hogy ha van admin jogod akkor az egyből oda dob be és kiírja hogy `admin jogokkal beléptél!` ezzel is felhívja a figyelmedet hogy ez eghy admin fiók
+- Amikor belépsz akkor dönti el hogy admin vagy e ha nem vagy az akkor a felhasználói oldalra dob be
+- Admin fiókot nem lehet létrehozni csak adatbázisba tudunk adni
+- Minden feltöltéshez illetve más dologhoz vagyis `inaktivitáshoz`,`szerkesztéshez` és sok más dologhoz admin fiókba kell lenned vagyis ha valahogy megtudod a végpontnak a nevét akkor se fogsz tudni termékekt felvinni és semmit amihez kell admin
+
+
 ## Frontend
 
 ### Mappaszerkezet
@@ -200,7 +208,8 @@ A TechBay webáruház egy modern, informatika fókuszú online áruház, amely a
 - `preBuilt.js`, `preBuiltAdmin.js` – előre gépek  
 - `uploadProduct.js` – termékfeltöltés
 
----
+----
+
 
 ## Használt npm csomagok
 
