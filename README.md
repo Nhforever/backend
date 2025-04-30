@@ -224,5 +224,7 @@ Az admin felületen a termékek feltölése szerkezstése és sok más találhat
 - `validator` – validálás  
 - `cors` – CORS kezelés  
 
+
+## Képek
 ![backend](img/backend_pic.png)
 ![frontend](img/frontend_pic.webp)
